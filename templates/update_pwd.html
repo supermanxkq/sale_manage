@@ -1,0 +1,76 @@
+{% extends "main/base.html" %}
+{% block meta %}
+    <meta name="keywords" content="供应商添加"/>
+    <meta name="description" content="供应商添加介绍"/>
+{% endblock %}
+
+{% block title %}
+    <title>修改密码</title>
+{% endblock %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="/static/css/userinfo.css"/>
+{% endblock %}
+{% block bBody %}
+    <!--当前系统的路径-->
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="/index">首页</a></li>
+                <li class="active">用户管理</li>
+                <li class="active">修改密码</li>
+            </ol>
+        </div>
+    </div>
+    <!--主要的内容模块-->
+    <div clas="row">
+        <div class="col-md-10">
+            <form class="form-horizontal update_pwd_form" action="{% url 'updatePwd' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="form-group">
+                        <label for="name" class="control-label col-md-3">用户名：</label>
+                        <div class="col-md-5">
+                            <input type="text" id="username" class="form-control" name="username" value="{{ request.user.username }}" readonly/>
+                        </div>
+                    </div>
+                </div>
+                    <div class="row">
+                    <div class="form-group">
+                        <label for="name" class="control-label col-md-3">旧密码：</label>
+                        <div class="col-md-5">
+                            <input type="password" id="oldPassword" class="form-control" name="oldPassword" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="name" class="control-label col-md-3">新密码：</label>
+                        <div class="col-md-5">
+                            <input type="password" id="newPassword" class="form-control" name="newPassword"/>
+                        </div>
+                        <input type="hidden" id="id" class="form-control" name="id" value="{{ request.user.id }}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-5 col-md-offset-3">
+                            <button type="button" class="form-control btn btn-danger updatePwd">修改密码</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-5 col-md-offset-3">
+                            <p class="text-danger" id="info"></p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block page %}{% endblock %}
+{% block bJs %}
+    <script src="/static/js/updatePwd.js"></script>
+{% endblock %}

@@ -1,0 +1,75 @@
+<div class="row" role="navigation">
+    <div class="col-md-12">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="" href="/index/"><img src="/static/img/logo.png" height="50px"/></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><img width="30px" height="30px" style="margin-top: 10px;"
+                                 src="{{ request.user.img }}"
+                                 class="img-circle "/>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">{{ request.user.username }} <span
+                                    class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)">上次登录：{{ request.user.last_login | date:"Y-m-d H:i:s" }}</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/getUserInfo">个人信息</a></li>
+                                <li><a href="/toUpPwd/">修改密码</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/logout">退出登录</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav menus navbar-right">
+                         <li><a href="/index/">首页 </a></li>
+                        <li><a href="/store_list_page/">销售单 </a></li>
+                        <li class="active"><a href="/store_list_page/">仓库管理 </a></li>
+                        <li><a href="#">订单管理</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">商品 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/goods_list_page/">商品管理</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/goodsTypeList">商品类型管理</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">统计<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/list_page">营收报表</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/customer_list_page/">统计图表</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">联系人<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/list_page">供应商管理</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/customer_list_page/">客户管理</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+</div>

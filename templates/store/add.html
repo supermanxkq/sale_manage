@@ -1,0 +1,79 @@
+{% extends "main/base.html" %}
+{% block meta %}
+    <meta name="keywords" content="仓库添加"/>
+    <meta name="description" content="仓库添加介绍"/>
+{% endblock %}
+
+
+
+{% block title %}
+    <title>仓库添加</title>
+{% endblock %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="/static/css/userinfo.css"/>
+{% endblock %}
+{% block bBody %}
+    <!--当前系统的路径-->
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="/index">首页</a></li>
+                <li class="active">仓库管理</li>
+                <li class="active">入库</li>
+            </ol>
+        </div>
+    </div>
+    <hr/>
+    <!--主要的内容模块-->
+    <div clas="row">
+        <div class="col-md-10">
+            <form class="form-horizontal" action="{% url 'add_store' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="goods_id_id" class="control-label col-md-3">商品：</label>
+                    <div class="col-md-5">
+                        <select name="goods_id_id" class="form-control" id="select_goods_list">
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <input type="hidden" id="goods_name" readonly class="form-control " name="goods_name"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="num" class="control-label col-md-3">数量：</label>
+                    <div class="col-md-5">
+                        <input type="text" id="num" class="form-control" name="num"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="total_price" class="control-label col-md-3">总价 ：</label>
+                    <div class="col-md-5">
+                        <input type="text" readonly id="total_price" class="form-control" name="total_price"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="single_price" class="control-label col-md-3">单价：</label>
+                    <div class="col-md-5">
+                        <input type="text" readonly id="single_price" class="form-control" name="single_price"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-5 col-md-offset-3">
+                        <button type="submit" class="form-control btn btn-danger">入库新的商品</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block page %}{% endblock %}
+{% block bJs %}
+    <script src="/static/js/store.js"></script>
+{% endblock %}
+
+

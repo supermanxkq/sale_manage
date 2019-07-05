@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,11 +36,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sale',
+    'merchant',
+    'customer',
+    'goods',
+    'order',
+    'orderdetail',
+    'store',
+    'django_crontab',
+    'templatetag_handlebars',
+    'msg',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -65,12 +73,16 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                "app_main": "sale.app_main",
+                "myfilter": "templatetags.myfilter"
+            },
         },
+
     },
 ]
 
 WSGI_APPLICATION = 'sale_manage.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -83,12 +95,12 @@ WSGI_APPLICATION = 'sale_manage.wsgi.application'
 # }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',   # 数据库引擎
-        'NAME': 'sale_manage',         # 你要存储数据的库名，事先要创建之
-        'USER': 'root',         # 数据库用户名
-        'PASSWORD': '0808XuKaiQiang..',     # 密码
-        'HOST': 'localhost',    # 主机
-        'PORT': '3306',         # 数据库使用的端口
+        'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
+        'NAME': 'sale_manage',  # 你要存储数据的库名，事先要创建之
+        'USER': 'root',  # 数据库用户名
+        'PASSWORD': '0808XuKaiQiang..',  # 密码
+        'HOST': 'localhost',  # 主机
+        'PORT': '3306',  # 数据库使用的端口
     }
 }
 
@@ -110,22 +122,32 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = 'zh-Hans'
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
-
+TIME_ZONE = 'UTC'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+# login page url
+LOGIN_URL = '/loginPage/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img/upload_files').replace('\\', '/')  # 设置静态文件路径为主目录下的media文件夹
+
+# accessory_dir = '/upload_files/'
+
+CRONJOBS = (
+    ('*/1 * * * *', 'crontab.store_watch.store_watch'),
+)
+USE_EMBER_STYLE_ATTRS = True
+
+AUTH_USER_MODEL = 'sale.User'   #应用表 + 表名

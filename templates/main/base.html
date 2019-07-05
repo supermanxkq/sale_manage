@@ -1,0 +1,83 @@
+{% load static %}
+{% load app_main %}
+{#{% load compress %}#}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    {% block title %}{% endblock %}
+    {% block meta %}{% endblock %}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/plug/font-awesome/css/font-awesome.min.css' %}">#}
+    {#    {% compress css %}#}
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/base.css"/>
+    {#        <link rel="stylesheet" type="text/css" href="{% static 'main/css/style.css' %}">#}
+    {#    {% endcompress %}#}
+    {% block linkcss %}{% endblock %}
+
+</head>
+<body style="background-color: #f5f5f5">
+<div class="container-fluid">
+    <!-- top
+    ==================================== -->
+    {% include "main/header.html" %}
+    {% block bBody %}{% endblock %}
+    {% block page %}
+        <!-- 分页 -->
+        <div class="row">
+            <div class="col-md-12 text-center">
+                {% if paginator.count > 10 %}
+                    <ul id="pagination_nm" class="pagination-nm pagination">
+                        {% if contacts.has_previous %}
+                            <li class="first"><a
+                                    href="?page={{ contacts.previous_page_number }}">&lt;上一页</a></li>
+                        {% else %}
+                            <li class="page"><a href="javascript:" title="已是最前一页了" style="color:#CCC">&lt;上一页</a>
+                            </li>
+                        {% endif %}
+                        {% for i in contacts.paginator.num_pages|paging:contacts.number %}
+                            {% ifequal i contacts.number %}
+                                <li class="page"><a href="javascript:"
+                                                    style="background-color:#F5F5F5;color:#FF0000">{{ i }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page"><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endifequal %}
+                        {% endfor %}
+                        {% if contacts.has_next %}
+                            <li class="page"><a href="?page={{ contacts.next_page_number }}">下一页&gt;</a>
+                            </li>
+                        {% else %}
+                            <li class="page"><a href="javascript:" title="已是最后一页了" style="color:#ccc">下一页&gt;</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    {% endblock %}
+</div>
+<!-- footer
+==================================== -->
+{#{% include "main/footer.html" %}#}
+{#{% compress js %}#}
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="/static/header/header.js"></script>
+{#{% endcompress %}#}
+{% block bJs %}{% endblock %}
+</body>
+</html>

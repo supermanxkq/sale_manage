@@ -1,0 +1,71 @@
+{% extends "main/base.html" %}
+{% block meta %}
+    <meta name="keywords" content="商品类型添加"/>
+    <meta name="description" content="商品类型添加介绍"/>
+{% endblock %}
+
+
+
+{% block title %}
+    <title>商品类型添加</title>
+{% endblock %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="/static/css/userinfo.css"/>
+{% endblock %}
+{% block bBody %}
+    <!--当前系统的路径-->
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="/index">首页</a></li>
+                <li class="active">商品</li>
+                <li class="active">商品类型管理</li>
+            </ol>
+        </div>
+    </div>
+    <hr>
+    <!--主要的内容模块-->
+    <div class="row">
+        <div class="col-md-10">
+            <form class="form-horizontal" action="{% url 'goods_type_add' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="form-group">
+                        <label for="name" class="control-label col-md-3">名称：</label>
+                        <div class="col-md-5">
+                            <input type="text" id="name" class="form-control" name="name" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="description" class="control-label col-md-3">描述：</label>
+                        <div class="col-md-5">
+                            <input type="text" id="description" class="form-control" name="description" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="code" class="control-label col-md-3">代码：</label>
+                        <div class="col-md-5">
+                            <input type="text" id="code" class="form-control" name="code" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-5 col-md-offset-3">
+                            <button type="submit" class="form-control btn btn-danger">新增商品类型信息</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block page %}{% endblock %}
+{% block bJs %}
+    <script src="/static/js/userinfo.js"></script>
+{% endblock %}

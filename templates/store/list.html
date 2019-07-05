@@ -1,0 +1,103 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load app_main %}
+{% load myfilter %}
+{#{% load compress %}#}
+
+{% block meta %}
+    <meta name="keywords" content="商品类型"/>
+    <meta name="description" content="商品类型介绍"/>
+{% endblock %}
+
+{% block title %}
+    <title>商品类型</title>
+{% endblock %}
+
+
+{% block linkcss %}
+    <link rel="stylesheet" href="/static/css/index.css"/>
+{% endblock %}
+{% block bBody %}
+    <!--当前系统的路径-->
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="/index">首页</a></li>
+                <li class="active">仓库管理</li>
+                <li class="active">仓库管理</li>
+            </ol>
+        </div>
+    </div>
+    <!--主要的内容模块-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-8">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="goods_name">名称：</label>
+                            <div class="col-md-5">
+                                <input type="text" name="goods_name" value="{{ goods_name }}" class="form-control"/>
+                                <input type="text" name="page" value="{{ contacts.number }}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <input type="submit" value="搜素" class="form-control"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-md-3  col-md-offset-8 text-right">
+                    <a type="button" href="/toStoreAdd" class="btn btn-default">新增数据</a>
+                </div>
+                <div class="col-md-1   text-left">
+                    <a type="button" href="/export" class="btn btn-default">导出数据</a>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr class="info">
+                    <th>编号</th>
+                    <th>商品名称</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>总价</th>
+                    <th>入库时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if merchants_list %}
+                    {% for item in merchants_list %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.goods_name }}</td>
+                            <td>{{ item.single_price | money_format }}</td>
+                            <td>{{ item.num | num_format }}</td>
+                            <td>{{ item.total_price | money_format }}</td>
+                            <td>{{ item.create_time  |date:"Y-m-d H:i:s" }}</td>
+                            <td>
+                                <a href="{% url 'goodstype_edit' item.id %}">修改</a>
+                                <a href="{% url 'delete_store' item.id %}">删除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center">没有查找到数据</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bJs %}
+    {#    {% compress js %}#}
+    <script src="/static/js/index.js" type="text/javascript"/>
+    {#    {% endcompress %}#}
+{% endblock %}

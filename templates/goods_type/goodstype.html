@@ -1,0 +1,81 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load app_main %}
+{#{% load compress %}#}
+
+
+{% block meta %}
+    <meta name="keywords" content="商品类型"/>
+    <meta name="description" content="商品类型介绍"/>
+{% endblock %}
+
+{% block title %}
+    <title>商品类型</title>
+{% endblock %}
+
+
+{% block linkcss %}
+    <link rel="stylesheet" href="/static/css/index.css"/>
+{% endblock %}
+{% block bBody %}
+    <!--当前系统的路径-->
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="/index">首页</a></li>
+                <li class="active">商品</li>
+                <li class="active">商品类型管理</li>
+            </ol>
+        </div>
+    </div>
+    <!--主要的内容模块-->
+    <div class="row add-btn">
+        <div class="col-md-12">
+            <div class="col-md-2  col-md-offset-10 text-right">
+                <a type="button" href="/to_add_goods_type" class="btn btn-default">新增数据</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr style="background-color:#eeb417">
+                    <th>类型编号</th>
+                    <th>类型名称</th>
+                    <th>类型描述</th>
+                    <th>类型代码</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if goods_Types_List %}
+                    {% for item in goods_Types_List %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.description |truncatechars:10}}</td>
+                            <td>{{ item.code }}</td>
+                            <td>
+                                <a href="{% url 'goodstype_edit' item.id %}">修改</a>
+                                <a href="{% url 'del_goods_type' item.id %}">删除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">没有查找到数据</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block bJs %}
+    {#    {% compress js %}#}
+    <script src="/static/js/index.js" type="text/javascript"/>
+    {#    {% endcompress %}#}
+{% endblock %}
