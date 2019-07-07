@@ -8,7 +8,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from  customer.models import Customer
 from io import BytesIO
 import xlwt
+from django.contrib.auth.decorators import login_required
+from django.core import serializers
+
 # 分页查询所有的供应商信息
+@login_required
 def list_page(request):
     merchants = Customer.objects.all().order_by('id')
     paginator=Paginator(merchants, 7)
@@ -27,18 +31,19 @@ def list_page(request):
 
 
 # 删除商品类型
+@login_required
 def delete(request, id):
     Customer.objects.filter(id=id).delete()
     return HttpResponseRedirect('/customer_list_page/')
 
-
+@login_required
 def toEdit(request, id):
     goods_type = Customer.objects.get(id=id)
     return render(request, 'goodstype_edit.html', {
         'Data': goods_type,
     });
 
-
+@login_required
 def update(request):
     print('进入了更新的方法！')
     id = request.POST.get('id', 'id')
@@ -48,21 +53,23 @@ def update(request):
     goods_type = Customer.objects.filter(id=id).update(name=name, description=description, code=code)
     return HttpResponseRedirect('/customer_list_page/')
 
-
+@login_required
 def toAdd(request):
     return render(request, 'customer/add.html');
 
 # 注册用户
 @csrf_exempt
+@login_required
 def add(request):
     name = request.POST.get('name', 'name')
     phone = request.POST.get('phone', 'phone')
     mark = request.POST.get('mark', 'mark')
     address = request.POST.get('address', 'address')
     where_from = request.POST.get('where_from', 'where_from')
-    Customer.objects.create(name=name, phone=phone, mark=mark,address=address,where_from=where_from)
+    age = request.POST.get('age', 'age')
+    Customer.objects.create(name=name, phone=phone, mark=mark,address=address,where_from=where_from,age=age)
     return HttpResponseRedirect('/customer_list_page/')
-
+@login_required
 def export(request):
     # 设置HTTPResponse的类型
     response = HttpResponse(content_type='application/vnd.ms-excel')
@@ -118,3 +125,9 @@ def export(request):
     output.seek(0)
     response.write(output.getvalue())
     return response
+
+@login_required
+@csrf_exempt
+def  query_customer_list(request):
+    json_data=serializers.serialize('json', Customer.objects.all())
+    return HttpResponse(json_data, content_type='application/json')

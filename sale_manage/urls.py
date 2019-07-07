@@ -21,6 +21,7 @@ from customer import views as customer_view
 from goods import views as goods_view
 from store import views as store_view
 from msg import views as msg_view
+from order import views as order_view
 
 app_name = "sale"
 urlpatterns = [
@@ -59,6 +60,7 @@ urlpatterns = [
     url(r'^toCustomerAdd/$', customer_view.toAdd, name='toCustomerAdd'),
     url(r'^add_customer/$', customer_view.add, name='add_customer'),
     url(r'^export_customer/$', customer_view.export, name='export_customer'),
+    url(r'^query_customer_list/$', customer_view.query_customer_list, name='query_customer_list'),
     # 商品管理
     url(r'^goods_list_page/$', goods_view.list_page, name='goods_list_page'),
     url(r'^delete_goods/(?P<id>[0-9]+)$', goods_view.delete, name='delete_goods'),
@@ -74,4 +76,9 @@ urlpatterns = [
     #  预警信息管理
     url(r'^queryMsgList/$', msg_view.queryMsgList, name='queryMsgList'),
 
+    #  订单管理
+    url(r'^queryOrderList/$', order_view.queryOrderList, name='queryOrderList'),
+    url(r'^delete_order/(?P<id>[0-9]+)$', order_view.delete, name='delete_order'),
+    url(r'^toOrderAdd/$', order_view.toAdd, name='toOrderAdd'),
+    url(r'^add_order/$', order_view.add_order, name='add_order'),
 ]

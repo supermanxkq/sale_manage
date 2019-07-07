@@ -44,6 +44,7 @@
                 <tr class="info">
                     <th>编号</th>
                     <th>名称</th>
+                    <th>年龄</th>
                     <th>手机</th>
                     <th>来自</th>
                     <th>地址</th>
@@ -57,6 +58,7 @@
                         <tr>
                             <td>{{ item.id }}</td>
                             <td>{{ item.name }}</td>
+                            <td>{{ item.age }}</td>
                             <td>{{ item.phone }}</td>
                             <td>{{ item.where_from }}</td>
                              <td>{{ item.address }}</td>
@@ -69,7 +71,7 @@
                     {% endfor %}
                 {% else %}
                     <tr>
-                        <td colspan="7" class="text-center">没有查找到数据</td>
+                        <td colspan="8" class="text-center">没有查找到数据</td>
                     </tr>
                 {% endif %}
                 </tbody>

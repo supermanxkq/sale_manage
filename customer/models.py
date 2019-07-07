@@ -9,6 +9,6 @@ class Customer(models.Model):
     mark = models.CharField(max_length=100, default='')
     phone = models.CharField(max_length=11, unique=True, verbose_name='手机号', default='')
     address = models.CharField(max_length=200, default='')
-
+    age =models.IntegerField(default=0)
     def __unicode__(self):
         return self.name

@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="/static/css/base.css"/>
     {#        <link rel="stylesheet" type="text/css" href="{% static 'main/css/style.css' %}">#}
     {#    {% endcompress %}#}
+    <link rel="stylesheet" href="/static/plugins/date-picker/css/bootstrap-datepicker3.css"/>
+
     {% block linkcss %}{% endblock %}
 
 </head>
@@ -77,6 +79,9 @@
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="/static/header/header.js"></script>
+<script type="text/javascript" src="/static/plugins/date-picker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/static/plugins/date-picker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+
 {#{% endcompress %}#}
 {% block bJs %}{% endblock %}
 </body>

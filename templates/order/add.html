@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block title %}
-    <title>客户添加</title>
+    <title>销售单添加</title>
 {% endblock %}
 
 {% block linkcss %}
@@ -17,8 +17,8 @@
         <div class="col-md-12">
             <ol class="breadcrumb">
                 <li><a href="/index">首页</a></li>
-                <li class="active">客户管理</li>
-                <li class="active">客户添加</li>
+                <li class="active">销售单</li>
+                <li class="active">销售单添加</li>
             </ol>
         </div>
     </div>
@@ -26,27 +26,58 @@
     <!--主要的内容模块-->
     <div clas="row">
         <div class="col-md-10">
-            <form class="form-horizontal" action="{% url 'add_customer' %}" method="post">
+            <form class="form-horizontal" action="{% url 'add_order' %}" method="post">
                 {% csrf_token %}
                 <div class="row">
                     <div class="form-group">
-                        <label for="name" class="control-label col-md-3">名称：</label>
+                        <label for="name" class="control-label col-md-3">客户：</label>
                         <div class="col-md-5">
-                            <input type="text" id="name" class="form-control" name="name"/>
+                            <select name="customer_id_id" class="form-control" id="select_customers_list">
+                            </select>
+                            <input type="hidden" value="{{ request.user.id }}" name="user_id_id">
+                        </div>
+                    </div>
+                </div>
+                {#                <div class="row">#}
+                {#                    <div class="form-group">#}
+                {#                        <label for="phone" class="control-label col-md-3">商品：</label>#}
+                {#                        <div class="col-md-5 form-inline">#}
+                {#                            <input type="text" id="phone" class="form-control" name="phone"/>#}
+                {#                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"#}
+                {#                                    data-target="#myModal">#}
+                {#                                +#}
+                {#                            </button>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {##}
+                {#                </div>#}
+                <div class="row">
+                    <div class="form-group">
+                        <label for="phone" class="control-label col-md-3">商品：</label>
+
+                        <div class="col-md-5">
+                            <div class="panel panel-success ">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">选择商品
+                                </div>
+                                <!-- Table -->
+                                <table class="table">
+
+                                </table>
+                                <div class="panel-footer">
+                                    <div class="col-md-offset-10">
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                                data-target="#myModal">+选择商品
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="phone" class="control-label col-md-3">手机：</label>
-                        <div class="col-md-5">
-                            <input type="text" id="phone" class="form-control" name="phone"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="where_from" class="control-label col-md-3">来自：</label>
+                        <label for="where_from" class="control-label col-md-3">销售员：</label>
                         <div class="col-md-5">
                             <input type="text" id="where_from" class="form-control" name="where_from"/>
                         </div>
@@ -54,33 +85,83 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="mark" class="control-label col-md-3">备注：</label>
-                        <div class="col-md-5">
-                            <input type="text" id="mark" class="form-control" name="mark"/>
+                        <label for="mark" class="control-label col-md-3">业务日期：</label>
+                        <div class="col-md-5 ">
+                            <div class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input type="text" id="bussnessDate" readonly class="form-control" name="bussnessDate"/>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="address" class="control-label col-md-3">地址：</label>
+                        <label for="address" class="control-label col-md-3">发货方式：</label>
                         <div class="col-md-5">
-                            <input type="text" id="address" class="form-control" name="address"/>
+                            <select name="delivery" class="form-control" id="select_delivery_list">
+                                <option value="ZT">自提</option>
+                                <option value="SF">顺丰</option>
+                                <option value="JD">京东</option>
+                                <option value="YZ">邮政</option>
+                                <option value="DB">德邦</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="address" class="control-label col-md-3">备注：</label>
+                        <div class="col-md-5">
+                            <textarea class="form-control" name="mark"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
                         <div class="col-md-5 col-md-offset-3">
-                            <button type="submit" class="form-control btn btn-danger">新增供应商信息</button>
+                            <button type="submit" class="form-control btn btn-danger">新增销售单信息</button>
                         </div>
                     </div>
                 </div>
-            </form>
+        </div>
+        </form>
+    </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">商品列表</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <td>选择</td>
+                            <td>商品</td>
+                            <td>名称</td>
+                            <td>单价</td>
+                            <td>数量</td>
+                        </tr>
+                        </thead>
+                        <tbody id="goodsList">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">添加商品</button>
+                </div>
+            </div>
         </div>
     </div>
 
 {% endblock %}
 {% block page %}{% endblock %}
 {% block bJs %}
-    <script src="/static/js/userinfo.js"></script>
+    <script src="/static/js/order/order_add.js"></script>
 {% endblock %}
