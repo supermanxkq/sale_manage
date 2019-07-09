@@ -25,8 +25,8 @@
     <hr>
     <!--主要的内容模块-->
     <div clas="row">
-        <div class="col-md-10">
-            <form class="form-horizontal" action="{% url 'add_order' %}" method="post">
+        <div class="col-md-10 ">
+            <form class="form-horizontal addOrderForm"  method="post">
                 {% csrf_token %}
                 <div class="row">
                     <div class="form-group">
@@ -38,19 +38,6 @@
                         </div>
                     </div>
                 </div>
-                {#                <div class="row">#}
-                {#                    <div class="form-group">#}
-                {#                        <label for="phone" class="control-label col-md-3">商品：</label>#}
-                {#                        <div class="col-md-5 form-inline">#}
-                {#                            <input type="text" id="phone" class="form-control" name="phone"/>#}
-                {#                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"#}
-                {#                                    data-target="#myModal">#}
-                {#                                +#}
-                {#                            </button>#}
-                {#                        </div>#}
-                {#                    </div>#}
-                {##}
-                {#                </div>#}
                 <div class="row">
                     <div class="form-group">
                         <label for="phone" class="control-label col-md-3">商品：</label>
@@ -61,8 +48,18 @@
                                 <div class="panel-heading">选择商品
                                 </div>
                                 <!-- Table -->
-                                <table class="table">
+                                <table class="table table-bordered table-hover" >
+                                    <thead>
+                                    <tr>
+                                        <td>商品</td>
+                                        <td>名称</td>
+                                        <td>价格</td>
+                                        <td>数量</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="checkGoodsList">
 
+                                    </tbody>
                                 </table>
                                 <div class="panel-footer">
                                     <div class="col-md-offset-10">
@@ -72,14 +69,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="where_from" class="control-label col-md-3">销售员：</label>
-                        <div class="col-md-5">
-                            <input type="text" id="where_from" class="form-control" name="where_from"/>
                         </div>
                     </div>
                 </div>
@@ -119,11 +108,10 @@
                 <div class="row">
                     <div class="form-group">
                         <div class="col-md-5 col-md-offset-3">
-                            <button type="submit" class="form-control btn btn-danger">新增销售单信息</button>
+                            <button type="button" class="form-control btn btn-danger addOrder">新增销售单信息</button>
                         </div>
                     </div>
                 </div>
-        </div>
         </form>
     </div>
     </div>
@@ -144,7 +132,6 @@
                             <td>商品</td>
                             <td>名称</td>
                             <td>单价</td>
-                            <td>数量</td>
                         </tr>
                         </thead>
                         <tbody id="goodsList">
@@ -154,7 +141,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">添加商品</button>
+                    <button type="button" class="btn btn-primary addGoods">添加商品</button>
                 </div>
             </div>
         </div>

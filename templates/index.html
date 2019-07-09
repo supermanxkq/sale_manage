@@ -12,8 +12,8 @@
     <title>首页</title>
 {% endblock %}
 
-
 {% block linkcss %}
+    <link rel="stylesheet" href="/static/css/index/index.css" type="text/css"/>
 {% endblock %}
 {% block bBody %}
     <!--当前系统的路径-->
@@ -26,18 +26,61 @@
     </div>
     <!--主要的内容模块-->
     <div class="row">
-        <div class="col-md-6">
-            <table class="table table-bordered table-striped table-hover">
-                <thead>
-                <tr>
-                    <td class="text-center text-danger"><b>仓库预警信息</b></td>
-                </tr>
-                </thead>
-                <tbody id="msg_content">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <td class="text-center text-danger"><b>仓库预警信息</b></td>
+                    </tr>
+                    </thead>
+                    <tbody id="msg_content">
 
-                </tbody>
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
+            <div class="col-md-5">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <td class="text-center text-danger"><b>今日销售单数</b></td>
+                        <td class="text-center text-danger"><b>今日销售总金额</b></td>
+                        <td class="text-center text-danger"><b>今销售总单数</b></td>
+                        <td class="text-center text-danger"><b>销售总金额</b></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-center">
+                            <button id="orderNums" class="btn btn-danger"></button>
+                        </td>
+                        <td class="text-center">
+                            <button id="todayTotalAmount" class="btn btn-success"></button>
+                        </td>
+                        <td class="text-center">
+                            <button id="total_orders" class="btn btn-warning"></button>
+                        </td>
+                        <td class="text-center">
+                            <button id="total_amount" class="btn btn-primary"></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div id="waitToggle">
+                    <div class="clearfix">
+                        <div id="annular" class="myEcharts" ></div>
+                        <ul class="case-list">
+
+                        </ul>
+                    </div>
+                    <div class="waitting-count-nodata" style="display: none"></div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -49,6 +92,7 @@
 {#{% endtplhandlebars %}#}
 {% block bJs %}
     {#    {% compress js %}#}
+    <script src="/static/plugins/echarts/echarts-all.js" type="text/javascript"></script>
     <script src="/static/js/index/index.js" type="text/javascript"></script>
     {#    {% endcompress %}#}
 {% endblock %}
@@ -58,5 +102,9 @@
     {{total}} result(s).
     <p>Min: {{min}}</p>
     <p>Max: {{max}}</p>
+
+
+
+
 </script>
 {% endverbatim %}

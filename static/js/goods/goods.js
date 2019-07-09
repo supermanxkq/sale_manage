@@ -18,4 +18,8 @@ $(function () {
             }
         });
     })
+
+    $("img").zoomify({
+        scale:0.5,
+    });
 })

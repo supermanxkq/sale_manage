@@ -122,7 +122,7 @@ def update_user_info(request):
                 new_file.write(chunk)
     img = '/static/img/upload_files/' + file_obj.name
     User.objects.filter(id=user_id).update(first_name=first_name, last_name=last_name, email=email,img=img)
-    return HttpResponseRedirect('/index/')
+    return HttpResponseRedirect('/')
 
 
 # 商品类型列表
@@ -218,6 +218,7 @@ def updatePwd(request):
 
 
 # 修改密码
+@login_required
 def db_change_password(username, oldPassword, newPassword):
     user = authenticate(username=username, password=oldPassword)
     if user is not None:

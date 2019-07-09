@@ -5,7 +5,7 @@ from merchant.models import Merchant
 
 #产品表
 class Goods(models.Model):
-    name = models.CharField(max_length=10)
+    name = models.CharField(max_length=20)
     status = models.CharField(max_length=2, default='')
     create_time = models.DateTimeField(default=timezone.now)
     goodsType_id= models.ForeignKey(GoodsType,related_name='goods_goods_type_id',on_delete=models.CASCADE)

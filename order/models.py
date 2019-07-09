@@ -5,7 +5,7 @@ from customer.models import Customer
 
 # 订单表
 class Order(models.Model):
-    order_code=models.CharField(max_length=50,default='')
+    order_code=models.CharField(max_length=50,default='',unique=True)
     status = models.CharField(max_length=5, default='')
     create_time = models.DateTimeField(default=timezone.now)
     bussnessDate = models.DateField(default=timezone.now)

@@ -89,3 +89,13 @@ def add(request):
 def queryGoodsNameList(request):
     json_data = serializers.serialize("json", Goods.objects.all().order_by('id'))
     return HttpResponse(json_data, content_type='application/json')
+
+
+
+
+@csrf_exempt
+@login_required
+def queryGoodsById(request):
+    goodsId=request.POST.get('goodsId')
+    json_data = serializers.serialize("json", Goods.objects.filter(pk=goodsId))
+    return HttpResponse(json_data, content_type='application/json')

@@ -12,7 +12,7 @@ $(function () {
             dataType: "json",
             success:function(res) {
                 if (res.status==1001) {
-                    window.location='/index';
+                    window.location='/';
                     console.log(res.msg)
                 } else if(res.status==1003) {
                     $("#searchResult").html(res.error);

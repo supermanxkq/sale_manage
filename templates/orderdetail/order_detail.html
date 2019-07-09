@@ -1,0 +1,70 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load app_main %}
+{#{% load compress %}#}
+{% load myfilter %}
+
+{% block meta %}
+    <meta name="keywords" content="客户"/>
+    <meta name="description" content="客户介绍"/>
+{% endblock %}
+
+{% block title %}
+    <title>销售单详情管理</title>
+{% endblock %}
+
+
+{% block linkcss %}
+    <link rel="stylesheet" href="/static/css/index.css"/>
+{% endblock %}
+{% block bBody %}
+    <!--当前系统的路径-->
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="/index">首页</a></li>
+                <li class="active"><a href="/queryOrderList/">销售单</a></li>
+                <li class="active">销售单详情</li>
+            </ol>
+        </div>
+    </div>
+    <!--主要的内容模块-->
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr class="info">
+                    <th>编号</th>
+                    <th>订单编号</th>
+                    <th>商品名称</th>
+                    <th>数量</th>
+                    <th>出售价格</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if merchants_list %}
+                    {% for item in merchants_list %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.order_id_id }}</td>
+                            <td>{{ item.goods_name }}</td>
+                            <td>{{ item.num }}</td>
+                            <td>{{ item.sale_price }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="11" class="text-center">没有查找到数据</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bJs %}
+    {#    {% compress js %}#}
+    <script src="/static/js/index.js" type="text/javascript"/>
+    {#    {% endcompress %}#}
+{% endblock %}

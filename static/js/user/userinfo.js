@@ -26,7 +26,7 @@ $(function () {
             contentType: false,
             processData: false,
             success: function (res) {
-                window.location.href = "/index/"
+                window.location.href = "/"
             }
         });
     })

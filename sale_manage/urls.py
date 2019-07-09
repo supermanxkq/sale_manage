@@ -22,13 +22,15 @@ from goods import views as goods_view
 from store import views as store_view
 from msg import views as msg_view
 from order import views as order_view
+from orderdetail import views as  order_detail_view
+from home import views as home_view
 
 app_name = "sale"
 urlpatterns = [
     url('admin/', admin.site.urls),
     url(r'^loginPage/$', sale_view.login_page, name='login_page'),
     url(r'^login/$', sale_view.login, name='login'),
-    url(r'^index/$', sale_view.index, name='index'),
+    url(r'^$', sale_view.index),
     url(r'^toSignUp/$', sale_view.to_sign_up, name='to_sign_up'),
     url(r'^signUp/$', sale_view.sign_up, name='sign_up'),
     url(r'^logout/$', sale_view.my_logout, name='my_logout'),
@@ -67,11 +69,11 @@ urlpatterns = [
     url(r'^toGoodsAdd/$', goods_view.toAdd, name='toGoodsAdd'),
     url(r'^add_goods/$', goods_view.add, name='add_goods'),
     url(r'^queryGoodsNameList/$', goods_view.queryGoodsNameList, name='queryGoodsNameList'),
+    url(r'^queryGoodsById/$', goods_view.queryGoodsById, name='queryGoodsById'),
     #  库存管理
     url(r'^store_list_page/$', store_view.list_page, name='store_list_page'),
     url(r'^delete_store/(?P<id>[0-9]+)$', store_view.delete, name='delete_store'),
     url(r'^toStoreAdd/$', store_view.toAdd, name='toStoreAdd'),
-    url(r'^add_store/$', store_view.add, name='add_store'),
     url(r'^add_store/$', store_view.add, name='add_store'),
     #  预警信息管理
     url(r'^queryMsgList/$', msg_view.queryMsgList, name='queryMsgList'),
@@ -81,4 +83,13 @@ urlpatterns = [
     url(r'^delete_order/(?P<id>[0-9]+)$', order_view.delete, name='delete_order'),
     url(r'^toOrderAdd/$', order_view.toAdd, name='toOrderAdd'),
     url(r'^add_order/$', order_view.add_order, name='add_order'),
+    url(r'^queryTodayOrders/$', order_view.queryTodayOrder, name='queryTodayOrders'),
+
+    # 订单详情管理
+    url(r'^queryOrderDetailList/(?P<order_code>[0-9]+)$', order_detail_view.queryOrderDetailList, name='queryOrderDetailList'),
+
+    # 首页
+    url(r'^queryStatisticsData/$', home_view.queryStatisticsData,
+        name='queryStatisticsData'),
+
 ]

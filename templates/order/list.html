@@ -2,7 +2,7 @@
 {% load static %}
 {% load app_main %}
 {#{% load compress %}#}
-
+{% load myfilter %}
 
 {% block meta %}
     <meta name="keywords" content="客户"/>
@@ -16,6 +16,7 @@
 
 {% block linkcss %}
     <link rel="stylesheet" href="/static/css/index.css"/>
+    <link rel="stylesheet" href="/static/plugins/zoomify/css/zoomify.min.css"/>
 {% endblock %}
 {% block bBody %}
     <!--当前系统的路径-->
@@ -33,7 +34,7 @@
         <div class="col-md-12">
             <div class="row" style="margin-bottom: 15px;">
                 <div class="col-md-3  col-md-offset-9 text-right">
-                    <a type="button" href="/toOrderAdd" class="btn btn-default">新增数据</a>
+                    <a type="button" href="/toOrderAdd" class="btn btn-default">新增</a>
                 </div>
             </div>
             <table class="table table-bordered table-striped table-hover">
@@ -41,7 +42,9 @@
                 <tr class="info">
                     <th>编号</th>
                     <th>订单编号</th>
+                    <th>商品</th>
                     <th>发货方式</th>
+                    <th>收货人</th>
                     <th>总价</th>
                     <th>状态</th>
                     <th>业务日期</th>
@@ -56,30 +59,31 @@
                         <tr>
                             <td>{{ item.id }}</td>
                             <td>{{ item.order_code }}</td>
+                            <td>{{ item.order_code | query_img_by_orderId |safe }}</td>
                             {% ifequal item.delivery 'ZT' %}
                                 <td>自提</td>
                             {% else %}
                                 <td>无</td>
                             {% endifequal %}
+                            <td>{{ item.customer_id_id |query_CustomerName_by_id }}</td>
                             <td>{{ item.total_price }}</td>
                             {% ifequal item.status 'ZC' %}
                                 <td>正常</td>
                             {% else %}
                                 <td> 不正常</td>
                             {% endifequal %}
-                            <td>{{ item.bussnessDate |date:"Y-m-d"}}</td>
+                            <td>{{ item.bussnessDate |date:"Y-m-d" }}</td>
                             <td>{{ item.create_time |date:"Y-m-d H:i:s" }}</td>
                             <td>{{ item.mark | truncatechars:10 }}</td>
                             <td>
                                 <a href="{% url 'goodstype_edit' item.id %}">修改</a>
-                                <a href="{% url 'delete_order' item.id %}">删除</a>
-                                <a href="{% url 'delete_customer' item.id %}">详情</a>
+                                <a href="{% url 'queryOrderDetailList' item.order_code %}">详情</a>
                             </td>
                         </tr>
                     {% endfor %}
                 {% else %}
                     <tr>
-                        <td colspan="8" class="text-center">没有查找到数据</td>
+                        <td colspan="11" class="text-center">没有查找到数据</td>
                     </tr>
                 {% endif %}
                 </tbody>
@@ -90,6 +94,7 @@
 
 {% block bJs %}
     {#    {% compress js %}#}
-    <script src="/static/js/index.js" type="text/javascript"/>
+    <script src="/static/plugins/zoomify/js/zoomify.min.js" type="text/javascript"></script>
+    <script src="/static/js/order/order.js" type="text/javascript"></script>
     {#    {% endcompress %}#}
 {% endblock %}
