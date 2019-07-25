@@ -1,42 +1,5 @@
-.waitting-count-nodata{
-    min-height: 350px;
-}
 .myEcharts{
     width:80%;
     height:350px;
     float: left;
-}
-ul.case-list{
-    float: left;
-    margin-top: 30px;
-}
-ul.case-list li{
-    font-size: 12px;
-    color: #666666;
-    line-height: 38px;
-}
-ul.case-list li span{
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-right: 9px;
-    vertical-align: middle;
-}
-ul.case-list li:nth-child(2) span{
-    background: #FDC587;
-}
-ul.case-list li:nth-child(3) span{
-    background: #FFA5C5;
-}
-ul.case-list li:nth-child(4) span{
-    background: #CFA0FF;
-}
-ul.case-list li:nth-child(5) span{
-    background: #A6C7FF;
-}
-ul.case-list li:nth-child(6) span{
-    background: #A1DFF5;
-}
-ul.case-list li:nth-child(7) span{
-    background: #DBEEBE;
 }

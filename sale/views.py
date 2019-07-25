@@ -14,7 +14,7 @@ from sale_manage import settings
 import  os
 # login frame
 def login_page(request):
-    return render(request, 'login.html');
+    return render(request, 'login_soft.html');
 
 
 # 首页
@@ -94,7 +94,7 @@ def my_logout(request):
 @login_required
 def get_user_info(request):
     user = User.objects.get(username=request.user.username)
-    return render(request, 'userinfo.html', object_to_json(user));
+    return render(request, 'profile.html', object_to_json(user));
     # return JsonResponse(object_to_json(user))
 
 
@@ -105,23 +105,32 @@ def object_to_json(obj):
 
 # 更新用户的信息
 @login_required
+@csrf_exempt
 def update_user_info(request):
     user_id = request.POST.get('id')
     first_name = request.POST.get('first_name')
     last_name = request.POST.get('last_name')
     email = request.POST.get('email')
-    print('获取到的参数是：user_id,first_name,last_name', user_id, first_name, last_name, email)
+    img = request.POST.get('img')
+    address = request.POST.get('address')
+    interests=request.POST.get('interests')
+    phone=request.POST.get('phone')
+    birthday=request.POST.get('birthday')
     file_obj = request.FILES.get('file')
     if file_obj:
-        accessory_dir = settings.MEDIA_ROOT
-        if not os.path.isdir(accessory_dir):
-            os.mkdir(accessory_dir)
-        upload_file = "%s/%s" % (accessory_dir, file_obj.name)
-        with open(upload_file, 'wb') as new_file:
-            for chunk in file_obj.chunks():
-                new_file.write(chunk)
-    img = '/static/img/upload_files/' + file_obj.name
-    User.objects.filter(id=user_id).update(first_name=first_name, last_name=last_name, email=email,img=img)
+        print('获取到的参数是：user_id,first_name,last_name,file_obj.name,request.user.img', user_id, first_name, last_name, email,file_obj.name,request.user.img)
+        if  '/static/img/upload_files/'+file_obj.name !=request.user.img:
+            print('获取到的图片和数据库中保存的不一样：file_obj.name:',file_obj.name)
+            accessory_dir = settings.MEDIA_ROOT
+            if not os.path.isdir(accessory_dir):
+                os.mkdir(accessory_dir)
+            upload_file = "%s/%s" % (accessory_dir, file_obj.name)
+            with open(upload_file, 'wb') as new_file:
+                for chunk in file_obj.chunks():
+                    new_file.write(chunk)
+            img = '/static/img/upload_files/' + file_obj.name
+
+    User.objects.filter(id=user_id).update(first_name=first_name,phone=phone,birthday=birthday,interests=interests,address=address, last_name=last_name, email=email,img=img)
     return HttpResponseRedirect('/')
 
 
@@ -144,7 +153,7 @@ def goodsTypeList(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
     goods_Types_List = contacts.object_list
-    return render(request, 'goods_type/goodsType.html', locals())
+    return render(request, 'goods_type/goodstype_list.html', locals())
 
 
 # 删除商品类型
@@ -157,7 +166,7 @@ def del_goods_type(request, id):
 @login_required
 def goodstype_edit(request, id):
     goods_type = GoodsType.objects.get(id=id)
-    return render(request, 'goods_type/goodstype_edit.html', {
+    return render(request, 'goods_type/goodstype_update.html', {
         'Data': goods_type,
     });
 
@@ -208,25 +217,20 @@ def toUpPwd(request):
 
 # 修改密码
 @login_required
+@csrf_exempt
 def updatePwd(request):
     username = request.POST.get('username', None)
     oldPassword = request.POST.get('oldPassword',None)
     newPassword = request.POST.get('newPassword',None)
-    print(oldPassword,newPassword,username,'xxxxxxxx')
-    changeResult = db_change_password(username, oldPassword, newPassword)
-    return HttpResponse(changeResult)
-
-
-# 修改密码
-@login_required
-def db_change_password(username, oldPassword, newPassword):
     user = authenticate(username=username, password=oldPassword)
     if user is not None:
         if user.is_active:
             user.set_password(newPassword)
             user.save()
-            return 1    # 修改成功，允许特殊符号
+            return HttpResponse(1)  # 修改成功，允许特殊符号
         else:
-            return -2   # 没有权限
+            return HttpResponse(-2)   # 没有权限
     else:
-        return -1      # 旧密码错误
+        return HttpResponse(-1)  # 旧密码错误
+
+

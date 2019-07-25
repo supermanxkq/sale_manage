@@ -1,74 +1,461 @@
-<div class="row" role="navigation">
-    <div class="col-md-12">
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="" href="/"><img src="/static/img/logo.png" height="50px"/></a>
-                </div>
+{#<div class="row" role="navigation">#}
+{#    <div class="col-md-12">#}
+{#        <nav class="navbar navbar-inverse navbar-fixed-top">#}
+{#            <div class="container-fluid">#}
+{#                <!-- Brand and toggle get grouped for better mobile display -->#}
+{#                <div class="navbar-header">#}
+{#                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"#}
+{#                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">#}
+{#                        <span class="sr-only">Toggle navigation</span>#}
+{#                        <span class="icon-bar"></span>#}
+{#                        <span class="icon-bar"></span>#}
+{#                        <span class="icon-bar"></span>#}
+{#                    </button>#}
+{#                    <a class="" href="/"><img src="/static/img/logo.png" height="50px"/></a>#}
+{#                </div>#}
+{##}
+{#                <!-- Collect the nav links, forms, and other content for toggling -->#}
+{#                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">#}
+{#                    <ul class="nav navbar-nav navbar-right">#}
+{#                        <li><img width="30px" height="30px" style="margin-top: 10px;"#}
+{#                                 src="{{ request.user.img }}"#}
+{#                                 class="img-circle "/>#}
+{#                        </li>#}
+{#                        <li class="dropdown">#}
+{#                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"#}
+{#                               aria-haspopup="true" aria-expanded="false">{{ request.user.username }} <span#}
+{#                                    class="caret"></span></a>#}
+{#                            <ul class="dropdown-menu">#}
+{#                                <li><a href="javascript:void(0)">上次登录：{{ request.user.last_login | date:"Y-m-d H:i:s" }}</a></li>#}
+{#                                <li role="separator" class="divider"></li>#}
+{#                                <li><a href="/getUserInfo">个人信息</a></li>#}
+{#                                <li><a href="/toUpPwd/">修改密码</a></li>#}
+{#                                <li role="separator" class="divider"></li>#}
+{#                                <li><a href="/logout">退出登录</a></li>#}
+{#                            </ul>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                    <ul class="nav navbar-nav menus navbar-right">#}
+{#                         <li><a href="/" class="nav-link">首页 </a></li>#}
+{#                        <li><a href="/queryOrderList/">销售单 </a></li>#}
+{#                        <li class="active"><a href="/store_list_page/">采购 </a></li>#}
+{#                        <li class="dropdown">#}
+{#                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"#}
+{#                               aria-haspopup="true" aria-expanded="false">商品 <span class="caret"></span></a>#}
+{#                            <ul class="dropdown-menu">#}
+{#                                <li><a href="/goods_list_page/">商品管理</a></li>#}
+{#                                <li role="separator" class="divider"></li>#}
+{#                                <li><a href="/goodsTypeList">商品类型管理</a></li>#}
+{#                            </ul>#}
+{#                        </li>#}
+{#                        <li class="dropdown">#}
+{#                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"#}
+{#                               aria-haspopup="true" aria-expanded="false">统计<span class="caret"></span></a>#}
+{#                            <ul class="dropdown-menu">#}
+{#                                <li><a href="/list_page">营收报表</a></li>#}
+{#                                <li role="separator" class="divider"></li>#}
+{#                                <li><a href="/customer_list_page/">统计图表</a></li>#}
+{#                            </ul>#}
+{#                        </li>#}
+{#                        <li class="dropdown">#}
+{#                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"#}
+{#                               aria-haspopup="true" aria-expanded="false">联系人<span class="caret"></span></a>#}
+{#                            <ul class="dropdown-menu">#}
+{#                                <li><a href="/list_page">供应商管理</a></li>#}
+{#                                <li role="separator" class="divider"></li>#}
+{#                                <li><a href="/customer_list_page/">客户管理</a></li>#}
+{#                            </ul>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </div><!-- /.navbar-collapse -->#}
+{#            </div><!-- /.container-fluid -->#}
+{#        </nav>#}
+{#    </div>#}
+{#</div>#}
+<!-- BEGIN HEADER -->
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><img width="30px" height="30px" style="margin-top: 10px;"
-                                 src="{{ request.user.img }}"
-                                 class="img-circle "/>
+<div class="header navbar navbar-inverse navbar-fixed-top">
+
+    <!-- BEGIN TOP NAVIGATION BAR -->
+
+    <div class="navbar-inner">
+
+        <div class="container-fluid">
+
+            <!-- BEGIN LOGO -->
+
+            <a class="brand" href="/">
+
+                <img src="/static/image/logo.png" alt="logo"/>
+
+            </a>
+
+            <!-- END LOGO -->
+
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+
+            <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+
+                <img src="/static/image/menu-toggler.png" alt=""/>
+
+            </a>
+
+            <!-- END RESPONSIVE MENU TOGGLER -->
+
+            <!-- BEGIN TOP NAVIGATION MENU -->
+
+            <ul class="nav pull-right">
+
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+
+                <li class="dropdown" id="header_notification_bar">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                        <i class="icon-warning-sign"></i>
+
+                        <span class="badge noticeNum"></span>
+
+                    </a>
+
+                    <ul class="dropdown-menu extended notification">
+
+                        <li>
+
+                            <p class="notice_num">您有 <span class="noticeNum"></span>个新通知</p>
+                            <p class="no_notice hide">您没有有新通知</p>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">{{ request.user.username }} <span
-                                    class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)">上次登录：{{ request.user.last_login | date:"Y-m-d H:i:s" }}</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="/getUserInfo">个人信息</a></li>
-                                <li><a href="/toUpPwd/">修改密码</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="/logout">退出登录</a></li>
-                            </ul>
+
+
+                        <li class="external">
+
+                            <a href="/queryMsgListPage/">查看所有的通知 <i class="m-icon-swapright"></i></a>
+
                         </li>
+
                     </ul>
-                    <ul class="nav navbar-nav menus navbar-right">
-                         <li><a href="/">首页 </a></li>
-                        <li><a href="/queryOrderList/">销售单 </a></li>
-                        <li class="active"><a href="/store_list_page/">采购 </a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">商品 <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/goods_list_page/">商品管理</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="/goodsTypeList">商品类型管理</a></li>
-                            </ul>
+
+                </li>
+
+                <!-- END NOTIFICATION DROPDOWN -->
+
+                <!-- BEGIN INBOX DROPDOWN -->
+
+                <li class="dropdown" id="header_inbox_bar">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                        <i class="icon-envelope"></i>
+
+                        <span class="badge">5</span>
+
+                    </a>
+
+                    <ul class="dropdown-menu extended inbox">
+
+                        <li>
+
+                            <p>You have 12 new messages</p>
+
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">统计<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/list_page">营收报表</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="/customer_list_page/">统计图表</a></li>
-                            </ul>
+
+                        <li>
+
+                            <a href="inbox.html?a=view">
+
+                                <span class="photo"><img src="/static/image/avatar2.jpg" alt=""/></span>
+
+                                <span class="subject">
+
+								<span class="from">Lisa Wong</span>
+
+								<span class="time">Just Now</span>
+
+								</span>
+
+                                <span class="message">
+
+								Vivamus sed auctor nibh congue nibh. auctor nibh
+
+								auctor nibh...
+
+								</span>
+
+                            </a>
+
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">联系人<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/list_page">供应商管理</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="/customer_list_page/">客户管理</a></li>
-                            </ul>
+
+                        <li>
+
+                            <a href="inbox.html?a=view">
+
+                                <span class="photo"><img src="./static/image/avatar3.jpg" alt=""/></span>
+
+                                <span class="subject">
+
+								<span class="from">Richard Doe</span>
+
+								<span class="time">16 mins</span>
+
+								</span>
+
+                                <span class="message">
+
+								Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh
+
+								auctor nibh...
+
+								</span>
+
+                            </a>
+
                         </li>
+
+                        <li>
+
+                            <a href="inbox.html?a=view">
+
+                                <span class="photo"><img src="./static/image/avatar1.jpg" alt=""/></span>
+
+                                <span class="subject">
+
+								<span class="from">Bob Nilson</span>
+
+								<span class="time">2 hrs</span>
+
+								</span>
+
+                                <span class="message">
+
+								Vivamus sed nibh auctor nibh congue nibh. auctor nibh
+
+								auctor nibh...
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li class="external">
+
+                            <a href="inbox.html">See all messages <i class="m-icon-swapright"></i></a>
+
+                        </li>
+
                     </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
+
+                </li>
+
+                <!-- END INBOX DROPDOWN -->
+
+                <!-- BEGIN TODO DROPDOWN -->
+
+                <li class="dropdown" id="header_task_bar">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                        <i class="icon-tasks"></i>
+
+                        <span class="badge">5</span>
+
+                    </a>
+
+                    <ul class="dropdown-menu extended tasks">
+
+                        <li>
+
+                            <p>You have 12 pending tasks</p>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+								<span class="task">
+
+								<span class="desc">New release v1.2</span>
+
+								<span class="percent">30%</span>
+
+								</span>
+
+                                <span class="progress progress-success ">
+
+								<span style="width: 30%;" class="bar"></span>
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+								<span class="task">
+
+								<span class="desc">Application deployment</span>
+
+								<span class="percent">65%</span>
+
+								</span>
+
+                                <span class="progress progress-danger progress-striped active">
+
+								<span style="width: 65%;" class="bar"></span>
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+								<span class="task">
+
+								<span class="desc">Mobile app release</span>
+
+								<span class="percent">98%</span>
+
+								</span>
+
+                                <span class="progress progress-success">
+
+								<span style="width: 98%;" class="bar"></span>
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+								<span class="task">
+
+								<span class="desc">Database migration</span>
+
+								<span class="percent">10%</span>
+
+								</span>
+
+                                <span class="progress progress-warning progress-striped">
+
+								<span style="width: 10%;" class="bar"></span>
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+								<span class="task">
+
+								<span class="desc">Web server upgrade</span>
+
+								<span class="percent">58%</span>
+
+								</span>
+
+                                <span class="progress progress-info">
+
+								<span style="width: 58%;" class="bar"></span>
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+
+								<span class="task">
+
+								<span class="desc">Mobile development</span>
+
+								<span class="percent">85%</span>
+
+								</span>
+
+                                <span class="progress progress-success">
+
+								<span style="width: 85%;" class="bar"></span>
+
+								</span>
+
+                            </a>
+
+                        </li>
+
+                        <li class="external">
+
+                            <a href="#">See all tasks <i class="m-icon-swapright"></i></a>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <!-- END TODO DROPDOWN -->
+
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+
+                <li class="dropdown user">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                        <img alt="" src="{{ request.user.img }}" width="29px" height="29px"/>
+
+                        <span class="username">{{ request.user.username }}</span>
+
+                        <i class="icon-angle-down"></i>
+
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li><a href="/getUserInfo"><i class="icon-user"></i>个人信息</a></li>
+
+                        <li><a href="page_calendar.html"><i class="icon-calendar"></i> My Calendar</a></li>
+
+                        <li><a href="inbox.html"><i class="icon-envelope"></i> My Inbox(3)</a></li>
+
+                        <li><a href="#"><i class="icon-tasks"></i> My Tasks</a></li>
+
+                        <li class="divider"></li>
+                        <li><a href="/logout"><i class="icon-off"></i> 退出登录</a></li>
+
+                    </ul>
+
+                </li>
+
+                <!-- END USER LOGIN DROPDOWN -->
+
+            </ul>
+
+            <!-- END TOP NAVIGATION MENU -->
+
+        </div>
+
     </div>
+
+    <!-- END TOP NAVIGATION BAR -->
+
 </div>
+
+<!-- END HEADER -->

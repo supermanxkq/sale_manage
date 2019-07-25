@@ -1,0 +1,648 @@
+<!-- BEGIN HEAD -->
+{% extends "main/base.html" %}
+{% load static %}
+{% load app_main %}
+{#{% load compress %}#}
+
+{% block meta %}
+    <meta name="keywords" content="首页"/>
+    <meta name="description" content="首页"/>
+{% endblock %}
+
+{% block title %}
+    <title>首页</title>
+{% endblock %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="/static/css/bootstrap-fileupload.css" type="text/css"/>
+    <link href="/static/css/profile.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/chosen.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+{% block bBody %}
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+        <div id="portlet-config" class="modal hide">
+
+            <div class="modal-header">
+
+                <button data-dismiss="modal" class="close" type="button"></button>
+
+                <h3>portlet Settings</h3>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p>Here will be a configuration form</p>
+
+            </div>
+
+        </div>
+
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+        <!-- BEGIN PAGE CONTAINER-->
+
+        <div class="container-fluid">
+
+            <!-- BEGIN PAGE HEADER-->
+
+            <div class="row-fluid">
+
+                <div class="span12">
+
+                    <!-- BEGIN STYLE CUSTOMIZER -->
+
+                    <div class="color-panel hidden-phone">
+
+                        <div class="color-mode-icons icon-color"></div>
+
+                        <div class="color-mode-icons icon-color-close"></div>
+
+                        <div class="color-mode">
+
+                            <p>THEME COLOR</p>
+
+                            <ul class="inline">
+
+                                <li class="color-black current color-default" data-style="default"></li>
+
+                                <li class="color-blue" data-style="blue"></li>
+
+                                <li class="color-brown" data-style="brown"></li>
+
+                                <li class="color-purple" data-style="purple"></li>
+
+                                <li class="color-grey" data-style="grey"></li>
+
+                                <li class="color-white color-light" data-style="light"></li>
+
+                            </ul>
+
+                            <label>
+
+                                <span>Layout</span>
+
+                                <select class="layout-option m-wrap small">
+
+                                    <option value="fluid" selected>Fluid</option>
+
+                                    <option value="boxed">Boxed</option>
+
+                                </select>
+
+                            </label>
+
+                            <label>
+
+                                <span>Header</span>
+
+                                <select class="header-option m-wrap small">
+
+                                    <option value="fixed" selected>Fixed</option>
+
+                                    <option value="default">Default</option>
+
+                                </select>
+
+                            </label>
+
+                            <label>
+
+                                <span>Sidebar</span>
+
+                                <select class="sidebar-option m-wrap small">
+
+                                    <option value="fixed">Fixed</option>
+
+                                    <option value="default" selected>Default</option>
+
+                                </select>
+
+                            </label>
+
+                            <label>
+
+                                <span>Footer</span>
+
+                                <select class="footer-option m-wrap small">
+
+                                    <option value="fixed">Fixed</option>
+
+                                    <option value="default" selected>Default</option>
+
+                                </select>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <!-- END BEGIN STYLE CUSTOMIZER -->
+
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+
+                    <h3 class="page-title">
+
+                        个人信息
+                        <small>用户个人详细信息</small>
+
+                    </h3>
+
+                    <ul class="breadcrumb">
+
+                        <li>
+
+                            <i class="icon-home"></i>
+
+                            <a href="/">首页</a>
+
+                            <i class="icon-angle-right"></i>
+
+                        </li>
+
+                        <li><a href="/getUserInfo">个人信息</a></li>
+
+                    </ul>
+
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+
+                </div>
+
+            </div>
+
+            <!-- END PAGE HEADER-->
+
+            <!-- BEGIN PAGE CONTENT-->
+
+            <div class="row-fluid profile">
+
+                <div class="span12">
+
+                    <!--BEGIN TABS-->
+
+                    <div class="tabbable tabbable-custom tabbable-full-width">
+
+                        <ul class="nav nav-tabs">
+
+
+                            <li class="active"><a href="#tab_1_2" data-toggle="tab">个人信息</a></li>
+
+                            <li><a href="#tab_1_3" data-toggle="tab">账户修改</a></li>
+
+
+                        </ul>
+
+                        <div class="tab-content">
+
+                            <!--end tab-pane-->
+                            <div class="tab-pane profile-classic row-fluid active" id="tab_1_2">
+
+                                <div class="span2"><img src="{{ request.user.img }}" alt=""/>
+                                    {#                                    <a href="#"#}
+                                    {#                                                                                                 class="profile-edit">edit</a>#}
+                                </div>
+
+                                <ul class="unstyled span10">
+
+                                    <li><span>用户名:</span> {{ request.user.username }}</li>
+
+                                    <li><span>姓:</span> {{ request.user.first_name }}</li>
+
+                                    <li><span>名:</span> {{ request.user.last_name }}</li>
+
+                                    <li><span>生日:</span> {{ request.user.birthday | date:"Y-m-d" }}</li>
+
+                                    <li><span>邮箱:</span> <a
+                                            href="mailto:{{ request.user.email }}">{{ request.user.email }}</a></li>
+
+                                    <li><span>爱好:</span> {{ request.user.interests }}</li>
+
+                                    <li><span>电话号码:</span> {{ request.user.phone }}</li>
+
+                                    <li><span>地址:</span> {{ request.user.address }}</li>
+                                </ul>
+
+                            </div>
+
+                            <!--tab_1_2-->
+
+                            <div class="tab-pane row-fluid profile-account" id="tab_1_3">
+
+                                <div class="row-fluid">
+
+                                    <div class="span12">
+
+                                        <div class="span3">
+
+                                            <ul class="ver-inline-menu tabbable margin-bottom-10">
+
+                                                <li class="active">
+
+                                                    <a data-toggle="tab" href="#tab_1-1">
+
+                                                        <i class="icon-cog"></i>个人信息
+                                                    </a>
+
+                                                    <span class="after"></span>
+
+                                                </li>
+
+
+                                                <li class=""><a data-toggle="tab" href="#tab_3-3"><i
+                                                        class="icon-lock"></i>修改密码</a></li>
+
+                                                <li class=""><a data-toggle="tab" href="#tab_4-4"><i
+                                                        class="icon-eye-open"></i>隐私设置</a></li>
+
+                                            </ul>
+
+                                        </div>
+
+                                        <div class="span9">
+
+                                            <div class="tab-content">
+
+                                                <div id="tab_1-1" class="tab-pane active">
+
+                                                    <div style="height: auto;" id="accordion1-1"
+                                                         class="accordion collapse updateUserInfoDiv">
+
+                                                        <form action="#" method="post" enctype="multipart/form-data">
+                                                            <input type="hidden" name="img"
+                                                                   value="{{ user.img }}"/>
+                                                            <label class="control-label">选择头像</label>
+                                                            <div class="controls">
+
+                                                                <div class="fileupload fileupload-new"
+                                                                     data-provides="fileupload">
+
+                                                                    <div class="fileupload-new thumbnail"
+                                                                         style="width: 200px; height: 150px;">
+
+                                                                        <img src="{{ user.img }}"
+                                                                             alt=""/>
+
+                                                                    </div>
+
+                                                                    <div class="fileupload-preview fileupload-exists thumbnail"
+                                                                         style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+
+                                                                    <div>
+
+													<span class="btn btn-file"><span
+                                                            class="fileupload-new">选择图片</span>
+
+													<span class="fileupload-exists">修改</span>
+
+													<input type="file" class="default" name="file" required/></span>
+
+                                                                        <a href="#" class="btn fileupload-exists"
+                                                                           data-dismiss="fileupload">删除</a>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                                {#                                                                <span class="label label-important">NOTE!</span>#}
+                                                                {##}
+                                                                {#                                                                <span>#}
+                                                                {##}
+                                                                {#											Attached image thumbnail is#}
+                                                                {##}
+                                                                {#											supported in Latest Firefox, Chrome, Opera,#}
+                                                                {##}
+                                                                {#											Safari and Internet Explorer 10 only#}
+                                                                {##}
+                                                                {#											</span>#}
+
+                                                            </div>
+
+                                                            <input type="hidden" name="id"
+                                                                   value="{{ user.id }}"/>
+                                                            <label class="control-label">姓</label>
+
+                                                            <input type="text" class="m-wrap span8" required
+                                                                   name="first_name"
+                                                                   value="{{ user.first_name }}"/>
+
+                                                            <label class="control-label">名</label>
+
+                                                            <input type="text" class="m-wrap span8" required
+                                                                   name="last_name"
+                                                                   value="{{ user.last_name }}"/>
+                                                            <label class="control-label">生日</label>
+
+                                                            <input type="text"
+                                                                   class="m-wrap span8" name="birthday" required
+                                                                   value="{{ user.birthday | date:'Y-m-d' }}"/>
+                                                            <label class="control-label">手机号码</label>
+
+                                                            <input type="text"
+                                                                   class="m-wrap span8" name="phone" required
+                                                                   value="{{ user.phone }}"/>
+
+                                                            <label class="control-label">爱好</label>
+
+                                                            <input type="text" required
+                                                                   class="m-wrap span8" name="interests"
+                                                                   value="{{ user.interests }}"/>
+                                                            <label class="control-label">邮箱</label>
+                                                            <input type="text" required
+                                                                   class="m-wrap span8" name="email"
+                                                                   value="{{ user.email }}"/>
+
+                                                            <label class="control-label">地址</label>
+
+                                                            <textarea class="span8 m-wrap" name="address" required
+                                                                      rows="3">{{ user.address }}</textarea>
+
+
+                                                            <div class="submit-btn">
+
+                                                                <a href="#" class="btn green" id="updateUserInfoBtn">保存修改</a>
+
+                                                                <a href="/" class="btn">取消</a>
+
+                                                            </div>
+
+                                                        </form>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div id="tab_3-3" class="tab-pane">
+
+                                                    <div style="height: auto;" id="accordion3-3"
+                                                         class="accordion collapse">
+
+                                                        <form action="{% url 'updatePwd' %}" method="post"
+                                                              class="update_pwd_form">
+                                                            <input type="hidden" id="id" class="form-control" name="id"
+                                                                   value="{{ user.id }}"/>
+                                                            <input type="text" id="username" class="form-control"
+                                                                   name="username" value="{{ user.username }}"
+                                                                   readonly/>
+                                                            <label class="control-label">当前密码</label>
+
+                                                            <input type="password" class="m-wrap span8"
+                                                                   name="oldPassword"/>
+
+                                                            <label class="control-label">新密码</label>
+
+                                                            <input type="password" class="m-wrap span8"
+                                                                   name="newPassword"/>
+
+                                                            <label class="control-label">确认密码</label>
+
+                                                            <input type="password" class="m-wrap span8"/>
+
+                                                            <div class="submit-btn">
+
+                                                                <a href="#" class="btn green updatePwd">修改密码</a>
+
+                                                                <a href="/" class="btn">取消</a>
+
+                                                            </div>
+
+                                                        </form>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div id="tab_4-4" class="tab-pane">
+
+                                                    <div style="height: auto;" id="accordion4-4"
+                                                         class="accordion collapse">
+
+                                                        <form action="#">
+
+                                                            <div class="profile-settings row-fluid">
+
+                                                                <div class="span9">
+
+                                                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod
+                                                                        high life accusamus..</p>
+
+                                                                </div>
+
+                                                                <div class="control-group span3">
+
+                                                                    <div class="controls">
+
+                                                                        <label class="radio">
+
+                                                                            <input type="radio" name="optionsRadios1"
+                                                                                   value="option1"/>
+
+                                                                            Yes
+
+                                                                        </label>
+
+                                                                        <label class="radio">
+
+                                                                            <input type="radio" name="optionsRadios1"
+                                                                                   value="option2" checked/>
+
+                                                                            No
+
+                                                                        </label>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <!--end profile-settings-->
+
+                                                            <div class="profile-settings row-fluid">
+
+                                                                <div class="span9">
+
+                                                                    <p>Enim eiusmod high life accusamus terry richardson
+                                                                        ad squid wolf moon</p>
+
+                                                                </div>
+
+                                                                <div class="control-group span3">
+
+                                                                    <div class="controls">
+
+                                                                        <label class="checkbox">
+
+                                                                            <input type="checkbox" value=""/> All
+
+                                                                        </label>
+
+                                                                        <label class="checkbox">
+
+                                                                            <input type="checkbox" value=""/> Friends
+
+                                                                        </label>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <!--end profile-settings-->
+
+                                                            <div class="profile-settings row-fluid">
+
+                                                                <div class="span9">
+
+                                                                    <p>Pariatur cliche reprehenderit, enim eiusmod high
+                                                                        life accusamus terry richardson</p>
+
+                                                                </div>
+
+                                                                <div class="control-group span3">
+
+                                                                    <div class="controls">
+
+                                                                        <label class="checkbox">
+
+                                                                            <input type="checkbox" value=""/> Yes
+
+                                                                        </label>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <!--end profile-settings-->
+
+                                                            <div class="profile-settings row-fluid">
+
+                                                                <div class="span9">
+
+                                                                    <p>Cliche reprehenderit enim eiusmod high life
+                                                                        accusamus terry</p>
+
+                                                                </div>
+
+                                                                <div class="control-group span3">
+
+                                                                    <div class="controls">
+
+                                                                        <label class="checkbox">
+
+                                                                            <input type="checkbox" value=""/> Yes
+
+                                                                        </label>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <!--end profile-settings-->
+
+                                                            <div class="profile-settings row-fluid">
+
+                                                                <div class="span9">
+
+                                                                    <p>Oiusmod high life accusamus terry richardson ad
+                                                                        squid wolf fwopo</p>
+
+                                                                </div>
+
+                                                                <div class="control-group span3">
+
+                                                                    <div class="controls">
+
+                                                                        <label class="checkbox">
+
+                                                                            <input type="checkbox" value=""/> Yes
+
+                                                                        </label>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <!--end profile-settings-->
+
+                                                            <div class="space5"></div>
+
+                                                            <div class="submit-btn">
+
+                                                                <a href="#" class="btn green">Save Changes</a>
+
+                                                                <a href="#" class="btn">Cancel</a>
+
+                                                            </div>
+
+                                                        </form>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!--end span9-->
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!--end tab-pane-->
+
+
+                            <!--end tab-pane-->
+
+
+                            <!--end tab-pane-->
+
+                        </div>
+
+                    </div>
+
+                    <!--END TABS-->
+
+                </div>
+
+            </div>
+
+            <!-- END PAGE CONTENT-->
+
+        </div>
+
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+    <!-- END PAGE -->
+{% endblock %}
+{% block bJs %}
+    {#    {% compress js %}#}
+    {#    <script src="/static/plugins/echarts/echarts.min.js" type="text/javascript"></script>#}
+    {#    <script src="/static/js/index/index.js" type="text/javascript"></script>#}
+    {#    {% endcompress %}#}
+    <script src="/static/js/user/updatePwd.js" type="text/javascript"></script>
+    <script src="/static/js/user/userinfo.js" type="text/javascript"></script>
+    <script src="/static/js/bootstrap-fileupload.js" type="text/javascript"></script>
+{% endblock %}
+<!-- END BODY -->
+
+

@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 # 分页查询所有的供应商信息
 def list_page(request):
     merchants = Merchant.objects.all().order_by('id')
-    paginator = Paginator(merchants, 7)
+    paginator = Paginator(merchants, 10)
     page = request.GET.get('page')
     try:
         contacts = paginator.page(page)
@@ -27,38 +27,37 @@ def list_page(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
     merchants_list = contacts.object_list
-    return render(request, 'merchant/merchant.html', locals())
+    return render(request, 'merchant/merchant_list.html', locals())
 
 
 @login_required
 # 删除商品类型
 def delete(request, id):
     Merchant.objects.filter(id=id).delete()
-    return HttpResponseRedirect('/list_page/')
+    return HttpResponseRedirect('/merchant_list_page/')
 
 
 @login_required
-def toEdit(request, id):
-    goods_type = Merchant.objects.get(id=id)
-    return render(request, 'goodstype_edit.html', {
-        'Data': goods_type,
-    });
+def merchant_edit(request, id):
+    merchant = Merchant.objects.get(id=id)
+    return render(request, 'merchant/merchant_update.html',locals());
 
 
 @login_required
-def update(request):
-    print('进入了更新的方法！')
-    id = request.POST.get('id', 'id')
-    name = request.POST.get('name', 'nameID')
-    description = request.POST.get('description', 'description')
-    code = request.POST.get('code', 'code')
-    goods_type = Merchant.objects.filter(id=id).update(name=name, description=description, code=code)
-    return HttpResponseRedirect('/goodsTypeList/')
+def merchant_update(request):
+    id = request.POST.get('id')
+    name = request.POST.get('name', 'name')
+    phone = request.POST.get('phone', 'phone')
+    mark = request.POST.get('mark', 'mark')
+    address = request.POST.get('address', 'address')
+    where_from = request.POST.get('where_from', 'where_from')
+    Merchant.objects.filter(id=id).update(name=name, phone=phone, mark=mark, address=address, where_from=where_from)
+    return HttpResponseRedirect('/merchant_list_page/')
 
 
 @login_required
 def toAdd(request):
-    return render(request, 'merchant/merchant_add.html');
+    return render(request, 'merchant/merchants_add.html');
 
 
 @login_required
@@ -70,7 +69,7 @@ def add(request):
     address = request.POST.get('address', 'address')
     where_from = request.POST.get('where_from', 'where_from')
     Merchant.objects.create(name=name, phone=phone, mark=mark, address=address, where_from=where_from)
-    return HttpResponseRedirect('/list_page/')
+    return HttpResponseRedirect('/merchant_list_page/')
 
 
 @login_required

@@ -22,10 +22,9 @@ def queryStatisticsData(request):
     result=OrderDetail.objects.values('goodsType_id','goodsType_Name').annotate(number=Sum("num"))
     nameList = []
     dataList = []
+    objList=[]
     for item in result:
         nameList.append(item['goodsType_Name'])
         dataList.append(item['number'])
-    return HttpResponse(json.dumps({'nameList': nameList,'dataList':dataList}))
-
-
-
+        objList.append({'value':item['number'],'name':item['goodsType_Name']})
+    return HttpResponse(json.dumps({'nameList': nameList,'dataList':dataList,'objList':objList}))

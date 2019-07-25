@@ -3,7 +3,7 @@ import django.utils.timezone as timezone
 
 # 供应商表
 class Merchant(models.Model):
-    name = models.CharField(max_length=10)
+    name = models.CharField(max_length=20)
     create_time = models.DateTimeField(default=timezone.now)
     where_from = models.CharField(max_length=10, default='')
     mark = models.CharField(max_length=100, default='')
