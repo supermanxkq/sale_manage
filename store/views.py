@@ -31,7 +31,7 @@ def list_page(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
     merchants_list = contacts.object_list
-    return render(request, 'store/list.html', locals())
+    return render(request, 'store/store_list.html', locals())
 
 @login_required
 # 删除商品类型

@@ -13,3 +13,4 @@ class Goods(models.Model):
     merchant_id= models.ForeignKey(Merchant,related_name='goods_mer_id', on_delete=models.CASCADE)
     img = models.ImageField(upload_to='img',default='')
     single_price = models.DecimalField(decimal_places=2, max_digits=10)
+    wholesale_pice = models.DecimalField(decimal_places=2, max_digits=10)

@@ -4,11 +4,12 @@
 $(function () {
     //登录
     $("#login").click(function () {
-        var data = $(".loginForm").serialize();
+        var data = $(".login-form").serialize();
         $.ajax({
             type: "POST",
             url: "/login/",
             data:data,
+            async:false,
             dataType: "json",
             success:function(res) {
                 if (res.status==1001) {

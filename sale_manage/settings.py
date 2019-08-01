@@ -24,7 +24,7 @@ SECRET_KEY = ')zfd($*7oth!$r!62gimmk#_11ds_(828g1q22aelj3!b7w8b('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.100','192.168.0.101','127.0.0.1','192.168.0.121','192.168.1.102','localhost','192.168.0.103','192.168.30.79','172.20.10.3','172.20.10.7','172.16.136.148']
 
 # Application definition
 
@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'orderdetail',
     'store',
     'django_crontab',
-    'templatetag_handlebars',
     'msg',
+    'cart',
+    'purchase',
 ]
 
 MIDDLEWARE = [
@@ -132,8 +133,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'zh-Hans'
 USE_I18N = True
 USE_L10N = True
-USE_TZ = True
-TIME_ZONE = 'UTC'
+USE_TZ = False
+TIME_ZONE = 'Asia/Chongqing'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -158,6 +159,26 @@ AUTH_USER_MODEL = 'sale.User'  # 应用表 + 表名
 
 
 # session 设置
-SESSION_COOKIE_AGE = 60 * 30 # 30分钟
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 365 # 30分钟
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True # 关闭浏览器，则COOKIE失效
+
+
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console':{
+#             'level':'DEBUG',
+#             'class':'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'handlers': ['console'],
+#             'propagate': True,
+#             'level':'DEBUG',
+#         },
+#     }
+# }
