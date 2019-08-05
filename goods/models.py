@@ -2,6 +2,7 @@ from django.db import models
 import django.utils.timezone as timezone
 from sale.models import GoodsType
 from merchant.models import Merchant
+from system.storage import ImageStorage
 
 #产品表
 class Goods(models.Model):
@@ -14,3 +15,7 @@ class Goods(models.Model):
     img = models.ImageField(upload_to='img',default='')
     single_price = models.DecimalField(decimal_places=2, max_digits=10)
     wholesale_pice = models.DecimalField(decimal_places=2, max_digits=10)
+    img = models.ImageField(upload_to='img/%Y/%m/%d', storage=ImageStorage())  # 如果上传文件可以将ImageField换为FileField
+
+
+

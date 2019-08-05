@@ -24,7 +24,8 @@ SECRET_KEY = ')zfd($*7oth!$r!62gimmk#_11ds_(828g1q22aelj3!b7w8b('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.100','192.168.0.101','127.0.0.1','192.168.0.121','192.168.1.102','localhost','192.168.0.103','192.168.30.79','172.20.10.3','172.20.10.7','172.16.136.148']
+ALLOWED_HOSTS = ['192.168.1.100', '192.168.0.101', '127.0.0.1', '192.168.0.121', '192.168.1.102', 'localhost',
+                 '192.168.0.103', '192.168.30.79', '172.20.10.3', '172.20.10.7', '172.16.136.148']
 
 # Application definition
 
@@ -100,11 +101,14 @@ DATABASES = {
         'NAME': 'sale_manage',  # 你要存储数据的库名，事先要创建之
         'USER': 'root',  # 数据库用户名
         'PASSWORD': '0808XuKaiQiang..',  # 密码
-        'HOST': '192.168.0.112',  # 主机
+        'HOST': 'localhost',  # 主机
         'PORT': '3306',  # 数据库使用的端口
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             'charset': 'utf8mb4',
+            # django.db.utils.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '; SET SESSION TRANSACTION ISOLATION LEVEL READ COMMIT TED' at line 1")
+            'isolation_level': None
+
         },
     }
 }
@@ -157,13 +161,10 @@ USE_EMBER_STYLE_ATTRS = True
 
 AUTH_USER_MODEL = 'sale.User'  # 应用表 + 表名
 
-
 # session 设置
-SESSION_COOKIE_AGE = 60 * 60 * 24 * 365 # 30分钟
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 365  # 30分钟
 SESSION_SAVE_EVERY_REQUEST = True
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True # 关闭浏览器，则COOKIE失效
-
-
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器，则COOKIE失效
 
 # LOGGING = {
 #     'version': 1,

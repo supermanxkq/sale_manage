@@ -14,6 +14,7 @@ from django.core import serializers
 from io import BytesIO
 import xlwt
 from django.contrib.auth.decorators import login_required
+from system.storage import ImageStorage
 
 
 # 分页查询所有的供应商信息
@@ -81,14 +82,16 @@ def toAdd(request):
 def add(request):
     file_obj = request.FILES.get('file')
     if file_obj:
-        accessory_dir = settings.MEDIA_ROOT
-        if not os.path.isdir(accessory_dir):
-            os.mkdir(accessory_dir)
-        upload_file = "%s/%s" % (accessory_dir, file_obj.name)
-        with open(upload_file, 'wb') as new_file:
-            for chunk in file_obj.chunks():
-                new_file.write(chunk)
+        imgStorage=ImageStorage()
+        # accessory_dir = settings.MEDIA_ROOT
+        # if not os.path.isdir(accessory_dir):
+        #     os.mkdir(accessory_dir)
+        # upload_file = "%s/%s" % (accessory_dir, file_obj.name)
+        # with open(upload_file, 'wb') as new_file:
+        #     for chunk in file_obj.chunks():
+        #         new_file.write(chunk)
         img = '/static/img/upload_files/' + file_obj.name
+        imgStorage.save(file_obj.name,file_obj)
         name = request.POST.get('name', 'name')
         status = request.POST.get('status', 'status')
         single_price = request.POST.get('single_price', 'single_price')
