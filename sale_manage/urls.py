@@ -24,7 +24,6 @@ from orderdetail import views as  order_detail_view
 from home import views as home_view
 from msg import views as msg_view
 from cart import views as cart_view
-from purchase import views as purchase_view
 app_name = "sale"
 urlpatterns = [
     url('admin/', admin.site.urls),
@@ -73,13 +72,6 @@ urlpatterns = [
     url(r'^delete_store/(?P<id>[0-9]+)$', store_view.delete, name='delete_store'),
     url(r'^toStoreAdd/$', store_view.toAdd, name='toStoreAdd'),
     url(r'^add_store/$', store_view.add, name='add_store'),
-    # 采购单管理
-    url(r'^purchase_list_page/$', purchase_view.purchase_list_page, name='purchase_list_page'),
-    url(r'^toPurchaseAdd/$', purchase_view.toPurchaseAdd, name='toPurchaseAdd'),
-    url(r'^add_purchase/$', purchase_view.add_purchase, name='add_purchase'),
-    url(r'^delete_purchase/(?P<id>[0-9]+)$', purchase_view.delete_purchase, name='delete_purchase'),
-    url(r'^addToStore/(?P<purchase_id>[0-9]+)$', purchase_view.addToStore, name='addToStore'),
-
     #  预警信息管理
     url(r'^queryMsgList/$', msg_view.queryMsgList, name='queryMsgList'),
 

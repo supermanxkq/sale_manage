@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django_crontab',
     'msg',
     'cart',
-    'purchase',
 ]
 
 MIDDLEWARE = [
@@ -153,9 +152,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img/upload_files').replace('\\', '/'
 
 # accessory_dir = '/upload_files/'
 
-CRONJOBS = (
-    ('*/1 * * * *', 'crontab.store_watch.store_watch'),
-)
+# CRONJOBS = (
+#     ('*/1 * * * *', 'crontab.store_watch.store_watch'),
+# )
 USE_EMBER_STYLE_ATTRS = True
 
 AUTH_USER_MODEL = 'sale.User'  # 应用表 + 表名
