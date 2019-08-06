@@ -258,7 +258,6 @@
                                         <th class="hidden-480">商品类型</th>
                                         <th class="hidden-480">进价</th>
                                         <th class="hidden-480">销售价格</th>
-                                        <th class="hidden-480">供应商</th>
                                         <th class="hidden-480">状态</th>
                                         <th class="hidden-480">操作</th>
                                     </tr>
@@ -275,7 +274,6 @@
                                                 <td class="hidden-480">{{ item.goodsType_id_id |query_goodsType_by_id }}</td>
                                                 <td class="hidden-480">{{ item.wholesale_pice }}</td>
                                                 <td class="hidden-480">{{ item.single_price }}</td>
-                                                <td class="hidden-480">{{ item.merchant_id_id | query_merchant_by_id }}</td>
                                                 {% ifequal item.status 'ZC' %}
                                                     <td class="hidden-480">正常</td>
                                                 {% else %}

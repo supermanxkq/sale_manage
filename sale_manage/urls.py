@@ -16,11 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from sale import views as sale_view
-from merchant import views as merchant_view
 from customer import views as customer_view
 from goods import views as goods_view
 from store import views as store_view
-from msg import views as msg_view
 from order import views as order_view
 from orderdetail import views as  order_detail_view
 from home import views as home_view
@@ -52,16 +50,6 @@ urlpatterns = [
     url(r'^to_add_goods_type/$', sale_view.to_add_goods_type, name='to_add_goods_type'),
     url(r'^goods_type_add/$', sale_view.goods_type_add, name='goods_type_add'),
     url(r'^query_goodstype_list/$', sale_view.query_goodstype_list, name='query_goodstype_list'),
-    # 供应商管理
-    url(r'^merchant_list_page/$', merchant_view.list_page, name='merchant_list_page'),
-    url(r'^toAdd/$', merchant_view.toAdd, name='toAdd'),
-    url(r'^add/$', merchant_view.add, name='add'),
-    url(r'^export/$', merchant_view.export, name='export'),
-    url(r'^check_login/$', sale_view.check_login, name='check_login'),
-    url(r'^delete/(?P<id>[0-9]+)$', merchant_view.delete, name='delete'),
-    url(r'^queryMerchants/$', merchant_view.queryMerchants, name='queryMerchants'),
-    url(r'^merchant_edit/(?P<id>[0-9]+)$', merchant_view.merchant_edit, name='merchant_edit'),
-    url(r'^merchant_update/$', merchant_view.merchant_update, name='merchant_update'),
     # 客户管理
     url(r'^customer_list_page/$', customer_view.list_page, name='customer_list_page'),
     url(r'^delete_customer/(?P<id>[0-9]+)$', customer_view.delete, name='delete_customer'),

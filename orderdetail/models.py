@@ -2,13 +2,11 @@ from django.db import models
 import django.utils.timezone as timezone
 from sale.models import GoodsType
 from goods.models import Goods
-from merchant.models import Merchant
 from order.models import Order
 
 
 # 订单详情表
 class OrderDetail(models.Model):
-    merchant_id = models.ForeignKey(Merchant, related_name='order_detail_mer_id', on_delete=models.CASCADE)
     goods_id = models.ForeignKey(Goods, related_name='order_detail_goods_id', on_delete=models.CASCADE)
     goods_name = models.CharField(max_length=20)
     num = models.IntegerField()

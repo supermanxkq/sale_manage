@@ -9,7 +9,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('merchant', '0001_initial'),
         ('sale', '0001_initial'),
         ('goods', '0001_initial'),
     ]

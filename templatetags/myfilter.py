@@ -1,5 +1,4 @@
 from django import template
-from merchant.models import Merchant
 from sale.models import GoodsType
 from orderdetail.models import OrderDetail
 from goods.models import Goods
@@ -20,10 +19,7 @@ def num_format(value):
     return format(value, ',')
 
 
-@register.filter(is_safe=True)
-def query_merchant_by_id(value):
-    merchant = Merchant.objects.get(pk=value)
-    return merchant.name
+
 
 
 @register.filter(is_safe=True)

@@ -7,7 +7,6 @@ from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from  goods.models import Goods
 from sale.models import GoodsType
-from merchant.models import Merchant
 from sale_manage import settings
 import os
 from django.core import serializers
@@ -120,5 +119,4 @@ def goods_edit(request,id):
     goods=Goods.objects.get(pk=id)
     status_list=[{'value':'ZC','text':'正常'},{'value':'XJ','text':'下架'}]
     goodstype_list=GoodsType.objects.all()
-    merchants_list=Merchant.objects.all()
     return render(request, 'goods/goods_edit.html',locals());
