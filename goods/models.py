@@ -12,7 +12,6 @@ class Goods(models.Model):
     goodsType_Name= models.CharField(max_length=20, default='')
     img = models.ImageField(upload_to='img',default='')
     single_price = models.DecimalField(decimal_places=2, max_digits=10)
-    wholesale_pice = models.DecimalField(decimal_places=2, max_digits=10)
     img = models.ImageField(upload_to='img/%Y/%m/%d', storage=ImageStorage())  # 如果上传文件可以将ImageField换为FileField
 
 

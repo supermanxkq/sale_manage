@@ -203,7 +203,7 @@
 
                             {#								<h3>Advance validation of custom radio buttons, checkboxes and chosen dropdowns</h3>#}
 
-                            <form  method="post" id="form_sample_2"
+                            <form method="post" id="form_sample_2"
                                   class="form-horizontal " enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="alert alert-error hide">
@@ -233,16 +233,6 @@
                                     </div>
 
                                 </div>
-                                     <div class="control-group">
-
-                                    <label class="control-label"><span class="required">*</span>进价：</label>
-
-                                    <div class="controls">
-
-                                        <input type="text" name="wholesale_pice" data-required="1" class="span6 m-wrap"/>
-
-                                    </div>
-                                </div>
                                 <div class="control-group">
 
                                     <label class="control-label"><span class="required">*</span>销售价格：</label>
@@ -256,7 +246,8 @@
                                 <div class="control-group">
                                     <label class="control-label"><span class="required">*</span>类型：</label>
                                     <div class="controls">
-                                        <select class="span6 m-wrap" name="goodsType_id_id" id="select_goodsType_list" data-placeholder="Choose a Category" tabindex="1">
+                                        <select class="span6 m-wrap" name="goodsType_id_id" id="select_goodsType_list"
+                                                data-placeholder="Choose a Category" tabindex="1">
 
                                         </select>
                                     </div>
@@ -264,7 +255,8 @@
                                 <div class="control-group">
                                     <label class="control-label"><span class="required">*</span>状态：</label>
                                     <div class="controls">
-                                        <select class="span6 m-wrap" name="status" data-placeholder="Choose a Category" tabindex="1">
+                                        <select class="span6 m-wrap" name="status" data-placeholder="Choose a Category"
+                                                tabindex="1">
                                             <option value="ZC">正常</option>
                                             <option value="XJ">下架</option>
                                         </select>
@@ -336,7 +328,6 @@
 {% block bJs %}
     <script src="/static/js/goods/goods_add.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap-fileupload.js"></script>
-
 {% endblock %}
 
 
