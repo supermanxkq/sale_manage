@@ -31,6 +31,7 @@ app_name = "sale"
 urlpatterns = [
     url('admin/', admin.site.urls),
     # 用户管理
+    url(r'^$', sale_view.index, name='index'),
     url(r'^loginPage/$', sale_view.login_page, name='login_page'),
     url(r'^login/$', sale_view.login, name='login'),
     url(r'^toSignUp/$', sale_view.to_sign_up, name='to_sign_up'),
