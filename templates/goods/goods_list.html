@@ -253,10 +253,8 @@
 
                                     <tr>
                                         <th>编号</th>
-                                        <th>图片</th>
                                         <th>名称</th>
                                         <th class="hidden-480">商品类型</th>
-                                        <th class="hidden-480">进价</th>
                                         <th class="hidden-480">销售价格</th>
                                         <th class="hidden-480">状态</th>
                                         <th class="hidden-480">操作</th>
@@ -268,11 +266,8 @@
                                         {% for item in merchants_list %}
                                             <tr class="odd gradeX">
                                                 <td>{{ item.id }}</td>
-                                                <td ><img src="{{ item.img }}" width="30px"
-                                                                            height="30px"/></td>
                                                 <td class="hidden-480">{{ item.name }}</td>
                                                 <td class="hidden-480">{{ item.goodsType_id_id |query_goodsType_by_id }}</td>
-                                                <td class="hidden-480">{{ item.wholesale_pice }}</td>
                                                 <td class="hidden-480">{{ item.single_price }}</td>
                                                 {% ifequal item.status 'ZC' %}
                                                     <td class="hidden-480">正常</td>
