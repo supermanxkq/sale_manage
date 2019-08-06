@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/static/css/DT_bootstrap.css" type="text/css"/>
     <link rel="stylesheet" href="/static/css/select2_metro.css" type="text/css"/>
     <link href="/static/css/search.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/order/order_food.css" rel="stylesheet" type="text/css"/>
     <link href="/static/css/jquery.fancybox.css" rel="stylesheet"/>
     <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
 
@@ -192,31 +193,6 @@
             <div class="row-fluid">
 
                 <div class="tabbable tabbable-custom tabbable-full-width">
-                    {#                    <div class="row-fluid search-forms search-default">#}
-                    {##}
-                    {#                        <form class="form-search" action="#">#}
-                    {##}
-                    {#                            <div class="chat-form">#}
-                    {##}
-                    {#                                <div class="input-cont">#}
-                    {##}
-                    {#                                    <input type="text" placeholder="Search..." class="m-wrap"/>#}
-                    {##}
-                    {#                                </div>#}
-                    {##}
-                    {#                                <button type="button" class="btn green">#}
-                    {##}
-                    {#                                    Search &nbsp;#}
-                    {##}
-                    {#                                    <i class="m-icon-swapright m-icon-white"></i>#}
-                    {##}
-                    {#                                </button>#}
-                    {##}
-                    {#                            </div>#}
-                    {##}
-                    {#                        </form>#}
-                    {##}
-                    {#                    </div>#}
                     <ul class="nav nav-tabs">
                         {% for item in goodsTypes %}
                             {% if forloop.first %}
@@ -238,16 +214,16 @@
                                         {% if forloop.counter0|divisibleby:4 %}
                                             <ul class="thumbnails">
                                         {% endif %}
-                                        <li class="span3">
+                                        <li class="span3 goods_item">
                                            <a data-name="{{ goods.name }}" data-id="{{ goods.id }}"
                                                             data-sale-price="{{ goods.single_price }}"
 
                                                             data-toggle="modal"
                                                             data-target="#orderFood" class="btn  order_food"><img src="{{ goods.img }}" style="width: 313px;height: 191px;"></a>
-                                            <ul class="unstyled inline">
+                                            <ul class="unstyled">
                                                 <li><h4>{{ goods.name }}</h4></li>
 {#                                                <li><h4>库存：{{ goods.id | queryStoreResidueByGoodsId }}</h4></li>#}
-                                                <li class="pull-right"><h4><strong
+                                                <li ><h4><strong
                                                         class="text-error">{{ goods.single_price }}元</strong>
                                                 </h4>
                                                 </li>
