@@ -30,9 +30,9 @@ from purchase import views as purchase_view
 app_name = "sale"
 urlpatterns = [
     url('admin/', admin.site.urls),
+    # 用户管理
     url(r'^loginPage/$', sale_view.login_page, name='login_page'),
     url(r'^login/$', sale_view.login, name='login'),
-    url(r'^$', sale_view.index),
     url(r'^toSignUp/$', sale_view.to_sign_up, name='to_sign_up'),
     url(r'^signUp/$', sale_view.sign_up, name='sign_up'),
     url(r'^logout/$', sale_view.my_logout, name='my_logout'),
@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^updateUserInfo/$', sale_view.update_user_info, name='update_user_info'),
     url(r'^updatePwd/$', sale_view.updatePwd, name='updatePwd'),
     url(r'^toUpPwd/$', sale_view.toUpPwd, name='toUpPwd'),
+    url(r'^queryUserList/$', sale_view.queryUserList, name='queryUserList'),
 
     # 商品类型管理
     url(r'^goodsTypeList/$', sale_view.goodsTypeList, name='goodsTypeList'),

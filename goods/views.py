@@ -57,15 +57,9 @@ def goods_update(request):
     if file_obj:
         if '/static/img/upload_files/' + file_obj.name != goods_old.img:
             print('获取到的图片和数据库中保存的不一样：file_obj.name:', file_obj.name)
-            accessory_dir = settings.MEDIA_ROOT
-            if not os.path.isdir(accessory_dir):
-                os.mkdir(accessory_dir)
-            upload_file = "%s/%s" % (accessory_dir, file_obj.name)
-            with open(upload_file, 'wb') as new_file:
-                for chunk in file_obj.chunks():
-                    new_file.write(chunk)
-            img = '/static/img/upload_files/' + file_obj.name
-
+            imgStorage = ImageStorage()
+            name_save=imgStorage.save(file_obj.name, file_obj)
+            img = '/static/img/upload_files/' + name_save
 
     Goods.objects.filter(id=goods_id).update(name=name, img=img, wholesale_pice=wholesale_pice, status=status,
                          single_price=single_price, goodsType_id_id=goodsType_id_id,
@@ -90,8 +84,8 @@ def add(request):
         # with open(upload_file, 'wb') as new_file:
         #     for chunk in file_obj.chunks():
         #         new_file.write(chunk)
-        img = '/static/img/upload_files/' + file_obj.name
-        imgStorage.save(file_obj.name,file_obj)
+        name_save= imgStorage.save(file_obj.name,file_obj)
+        img = '/static/img/upload_files/' + name_save
         name = request.POST.get('name', 'name')
         status = request.POST.get('status', 'status')
         single_price = request.POST.get('single_price', 'single_price')
