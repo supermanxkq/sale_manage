@@ -45,34 +45,20 @@ def login(request):
 
 
 # 跳转到注册页面
-def to_sign_up(request):
-    return render(request, 'signUp.html');
+def toAddUser(request):
+    return render(request, 'user/user_add.html');
 
 
-# 注册用户
 @csrf_exempt
-def sign_up(request):
+def add_user(request):
     username = request.POST.get('username', None)
-    password = request.POST.get('password', None)
+    phone = request.POST.get('phone', None)
     result = User.objects.filter(username=username)
-    print(result)
     if result:
         return JsonResponse({'message': 'username is already exists !!!'})
     else:
-        file_obj = request.FILES.get('file')
-        print(file_obj,'ooooooooo')
-        if file_obj:
-            accessory_dir = settings.MEDIA_ROOT
-            if not os.path.isdir(accessory_dir):
-                os.mkdir(accessory_dir)
-            upload_file = "%s/%s" % (accessory_dir, file_obj.name)
-            with open(upload_file, 'wb') as new_file:
-                for chunk in file_obj.chunks():
-                    new_file.write(chunk)
-        img = '/static/img/upload_files/' + file_obj.name
-
-        User.objects.create_user(username=username, password=password,img=img)
-        return JsonResponse({'username': username, 'message': 'regist ok!'})
+        User.objects.create_user(username=username, password="888888", phone=phone)
+        return HttpResponseRedirect('/queryUserList')
 
 
 def check_login(request):
