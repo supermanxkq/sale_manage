@@ -122,12 +122,12 @@ def queryTodayOrder(request):
         total_profit_of_year+=item.total_profit
     #本月销售毛利=本月销售总额-本月销售成本（商品进价*销售数量）
 
-    print('本月销售毛利：',total_profit_of_month)
-    print('本月销售总额：',total_amount_of_month)
-    print('本年销售总额：',total_amount_of_year)
+    print('本月销售毛利：', total_profit_of_month)
+    print('本月销售总额：', total_amount_of_month)
+    print('本年销售总额：', total_amount_of_year)
     return HttpResponse(json.dumps(
-        {'today_add_order_count': today_add_order_count, 'todayTotalAmount': str(todayTotalAmount), 'total_amount_of_month': str(total_amount_of_month),
-         'total_orders_month': len(all_datas_month),'total_amount_of_year': str(total_amount_of_year),'total_profit_of_month':str(total_profit_of_month),'total_profit_of_year':str(total_profit_of_year)}))
+        {'today_add_order_count': today_add_order_count, 'todayTotalAmount': str(todayTotalAmount),  'total_amount_of_month': str(total_amount_of_month),
+         'total_orders_month': len(all_datas_month),'total_amount_of_year': str(total_amount_of_year), 'total_profit_of_month':str(total_profit_of_month),'total_profit_of_year':str(total_profit_of_year)}))
 
 
 @login_required
@@ -141,5 +141,4 @@ def printOrder(request):
         goods_db = Goods.objects.filter(id=goods.goods_id_id)
         total_money += goods.num * goods_db[0].single_price
     Cart.objects.all().delete()
-    # print_html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/><title>小票打印</title><style type="text/css">*{padding:0;margin:0}h1{font-size:20px}h3{font-size:16px}.left{float:left}.right{float:right}.clearfix{clear:both}ul{list-style:none}.print_container{padding:20px;width:188px}.section2 label{display:block}.section3 label{display:block}.section4 .total label{display:block}.section4 .other_fee{border-bottom:1px solid #dadada}.section5 label{display:block}</style></head><body style="background-color:#fff;"><div class="print_container" id="print_container"><h1>小野点餐系统</h1><span>**************************</span><div class="section1"><h3>线下支付预约</h3></div><span>**************************</span><div class="section2"><label>期望送达时间："+soo+"</label><label>订单备注：1111</label></div><span>**************************</span><div class="section3"><label>订单编号：567890</label><label>下单时间：1111</label></div><span>**************************</span><div class="section4"><div style="border-bottom: 1px solid #DADADA;"><!--<ul><div>菜单名称 数量 金额</div><li>米饭米饭 米饭 米饭 米饭 米饭 米饭 2 28元</li><li>米饭 2 28元</li></ul>--><table style="width: 100%;"><thead><tr><td width="60%">菜单名称</td><td width="20%">数量</td><td width="20%">金额</td></tr></thead><tbody><tr><td>米饭</td><td>2</td><td>28.00</td></tr><tr><td>米饭</td><td>2</td><td>28.00</td></tr><tr><td>米饭</td><td>2</td><td>28.00</td></tr></tbody></table></div><div class="other_fee"><div class="canh"><label class="left">餐盒费</label><label class="right">0</label><div class="clearfix"></div></div><div class="peis"><label class="left">配送费</label><label class="right">0</label><div class="clearfix"></div></div><div class="manj"><label class="left">立减优惠</label><label class="right">0</label><div class="clearfix"></div></div></div><div class="total"><label class="left">总计</label><label class="right">39</label><div class="clearfix"></div></div><div style="text-align: right;"><label>顾客已付款</label></div><span>**************************</span></div><div class="section5"><label>姓名：小花</label><label>地址：北京</label><label>电话：67890</label></div><span>**************************</span></div></body></html>'
-    return render(request,'order/print2.html',locals())
+    return render(request, 'order/print2.html', locals())
