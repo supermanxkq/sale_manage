@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_crontab',
     'msg',
     'cart',
+    'desk',
 ]
 
 MIDDLEWARE = [

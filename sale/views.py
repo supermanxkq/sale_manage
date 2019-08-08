@@ -19,7 +19,7 @@ def login_page(request):
 
 # 首页
 @login_required
-def index(request):
+def home(request):
     return render(request, 'index.html');
 
 
