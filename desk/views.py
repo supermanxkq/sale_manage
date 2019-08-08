@@ -5,17 +5,16 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from  customer.models import Customer
+from  desk.models import Desk
 from io import BytesIO
 import xlwt
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 
-# 分页查询所有的供应商信息
 @login_required
-def list_page(request):
-    merchants = Customer.objects.all().order_by('id')
-    paginator=Paginator(merchants, 10)
+def desk_list_page(request):
+    desks = Desk.objects.all().order_by('id')
+    paginator=Paginator(desks, 10)
     page = request.GET.get('page')
     try:
         contacts = paginator.page(page)
@@ -25,50 +24,43 @@ def list_page(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
-    merchants_list = contacts.object_list
-    return render(request, 'customer/customer_list.html', locals())
+    desks_list = contacts.object_list
+    return render(request, 'desk/desk_list.html', locals())
 
 
-
-# 删除商品类型
-@login_required
-def delete(request, id):
-    Customer.objects.filter(id=id).delete()
-    return HttpResponseRedirect('/customer_list_page/')
 
 @login_required
-def customer_edit(request, id):
-    customer = Customer.objects.get(id=id)
-    return render(request, 'customer/customer_update.html',locals());
+def delete_desk(request, id):
+    desk=Desk.objects.get(id=id)
+    desk.status='YSC'
+    desk.save()
+    return HttpResponseRedirect('/desk_list_page/')
 
 @login_required
-def customer_update(request):
+def desk_edit(request, id):
+    desk = Desk.objects.get(id=id)
+    return render(request, 'desk/desk_update.html', locals());
+
+@login_required
+def desk_update(request):
     id=request.POST.get('id')
     name = request.POST.get('name', 'name')
-    phone = request.POST.get('phone', 'phone')
-    mark = request.POST.get('mark', 'mark')
-    address = request.POST.get('address', 'address')
-    where_from = request.POST.get('where_from', 'where_from')
-    age = request.POST.get('age', 'age')
-    Customer.objects.filter(id=id).update(name=name, phone=phone,mark=mark,address=address,where_from=where_from,age=age)
-    return HttpResponseRedirect('/customer_list_page/')
+    status=request.POST.get('status','status')
+    Desk.objects.filter(id=id).update(name=name, status=status)
+    return HttpResponseRedirect('/desk_list_page/')
+
 
 @login_required
-def toAdd(request):
-    return render(request, 'customer/customer_add.html');
+def to_desk_add(request):
+    return render(request, 'desk/desk_add.html');
 
 # 注册用户
 @csrf_exempt
 @login_required
-def add(request):
+def add_desk(request):
     name = request.POST.get('name', 'name')
-    phone = request.POST.get('phone', 'phone')
-    mark = request.POST.get('mark', 'mark')
-    address = request.POST.get('address', 'address')
-    where_from = request.POST.get('where_from', 'where_from')
-    age = request.POST.get('age', 'age')
-    Customer.objects.create(name=name, phone=phone, mark=mark,address=address,where_from=where_from,age=age)
-    return HttpResponseRedirect('/customer_list_page/')
+    Desk.objects.create(name=name, status="YCJ")
+    return HttpResponseRedirect('/desk_list_page/')
 @login_required
 def export(request):
     # 设置HTTPResponse的类型

@@ -24,6 +24,7 @@ from orderdetail import views as  order_detail_view
 from home import views as home_view
 from msg import views as msg_view
 from cart import views as cart_view
+from desk import views as desk_view
 app_name = "sale"
 urlpatterns = [
     url('admin/', admin.site.urls),
@@ -98,5 +99,12 @@ urlpatterns = [
     url(r'^query_cart_list/$', cart_view.query_cart_list, name='query_cart_list'),
     url(r'^toConfirmOrder/$', cart_view.toConfirmOrder, name='toConfirmOrder'),
     url(r'^delete_cart/(?P<id>[0-9]+)$', cart_view.delete_cart, name='delete_cart'),
+    # 桌台管理
+    url(r'^desk_list_page/$', desk_view.desk_list_page, name='desk_list_page'),
+    url(r'^to_desk_add/$', desk_view.to_desk_add, name='to_desk_add'),
+    url(r'^add_desk/$', desk_view.add_desk, name='add_desk'),
+    url(r'^desk_edit/(?P<id>[0-9]+)$', desk_view.desk_edit, name='desk_edit'),
+    url(r'^delete_desk/(?P<id>[0-9]+)$', desk_view.delete_desk, name='delete_desk'),
+    url(r'^desk_update/$', desk_view.desk_update, name='desk_update'),
 
 ]

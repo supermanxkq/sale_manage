@@ -10,6 +10,7 @@ from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
+from system.storage import ImageStorage
 from sale_manage import settings
 import  os
 # login frame
@@ -107,14 +108,9 @@ def update_user_info(request):
         print('获取到的参数是：user_id,first_name,last_name,file_obj.name,request.user.img', user_id, first_name, last_name, email,file_obj.name,request.user.img)
         if  '/static/img/upload_files/'+file_obj.name !=request.user.img:
             print('获取到的图片和数据库中保存的不一样：file_obj.name:',file_obj.name)
-            accessory_dir = settings.MEDIA_ROOT
-            if not os.path.isdir(accessory_dir):
-                os.mkdir(accessory_dir)
-            upload_file = "%s/%s" % (accessory_dir, file_obj.name)
-            with open(upload_file, 'wb') as new_file:
-                for chunk in file_obj.chunks():
-                    new_file.write(chunk)
-            img = '/static/img/upload_files/' + file_obj.name
+            img_save=ImageStorage()
+            file_name=img_save.save(file_obj.name, file_obj)
+            img = '/static/img/upload_files/' + file_name
 
     User.objects.filter(id=user_id).update(first_name=first_name,phone=phone,birthday=birthday,interests=interests,address=address, last_name=last_name, email=email,img=img)
     return HttpResponseRedirect('/')
