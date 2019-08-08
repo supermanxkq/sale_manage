@@ -11,6 +11,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from system.storage import ImageStorage
+from pypinyin import pinyin, lazy_pinyin
 from sale_manage import settings
 import  os
 # login frame
@@ -235,3 +236,18 @@ def updatePwd(request):
         return HttpResponse(-1)  # 旧密码错误
 
 
+@login_required
+@csrf_exempt
+def queryNameCharacter(request):
+    name = request.POST.get('name')
+    result = get_acronym(name)
+    print('queryNameByCharacter result is :', result)
+    return HttpResponse(json.dumps({'result': result}))
+
+def get_acronym(str_data):
+    """
+    获取字符串的首字母
+    :param str_data: 字符串
+    :return: 字符串
+    """
+    return "".join([i[0][0] for i in pinyin(str_data)]).upper()

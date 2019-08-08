@@ -50,6 +50,7 @@ urlpatterns = [
     url(r'^to_add_goods_type/$', sale_view.to_add_goods_type, name='to_add_goods_type'),
     url(r'^goods_type_add/$', sale_view.goods_type_add, name='goods_type_add'),
     url(r'^query_goodstype_list/$', sale_view.query_goodstype_list, name='query_goodstype_list'),
+    url(r'^queryNameCharacter/$', sale_view.queryNameCharacter, name='queryNameCharacter'),
     # 客户管理
     url(r'^customer_list_page/$', customer_view.list_page, name='customer_list_page'),
     url(r'^delete_customer/(?P<id>[0-9]+)$', customer_view.delete, name='delete_customer'),
