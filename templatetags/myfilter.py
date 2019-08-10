@@ -1,9 +1,7 @@
 from django import template
-from sale.models import GoodsType
-from orderdetail.models import OrderDetail
-from goods.models import Goods
-from customer.models import Customer
-from store.models import Store
+from models.models import GoodsType
+from models.models import OrderDetail
+from models.models import Goods
 
 register = template.Library()
 import datetime
@@ -40,10 +38,6 @@ def query_img_by_orderId(value):
     return imgHtml
 
 
-@register.filter(is_safe=True)
-def query_CustomerName_by_id(value):
-    customer = Customer.objects.get(pk=value)
-    return customer.name
 
 
 @register.filter(is_safe=True)
@@ -71,10 +65,3 @@ def calc_total(num, goods_id):
     return goods.single_price * num
 
 
-@register.filter(is_safe=True)
-def queryStoreResidueByGoodsId(value):
-    storeQuerySet=Store.objects.filter(goods_id_id=value)
-    if storeQuerySet:
-        return storeQuerySet[0].num
-    else:
-        return '无'

@@ -7,15 +7,15 @@ from django.views.decorators.csrf import csrf_exempt
 
 import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from  order.models import Order
-from orderdetail.models import OrderDetail
+from  models.models import Order
+from models.models import OrderDetail
 from io import BytesIO
 import time  # 引入time模块
 from django.contrib.auth.decorators import login_required
 from decimal import Decimal
-from sale.models import GoodsType
-from goods.models import Goods
-from cart.models import Cart
+from models.models import GoodsType
+from models.models import Goods
+from models.models import Cart
 
 # 分页查询所有的供应商信息
 @login_required

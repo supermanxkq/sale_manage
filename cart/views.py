@@ -1,13 +1,13 @@
 from django.shortcuts import render, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from cart.models import Cart
-from goods.models import Goods
+from models.models import Cart
+from models.models import Goods
 import json
 from django.core import serializers
 from decimal import Decimal
-from order.models import Order
-from orderdetail.models import OrderDetail
+from models.models import Order
+from models.models import OrderDetail
 import time
 
 

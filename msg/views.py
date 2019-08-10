@@ -10,7 +10,7 @@ from io import BytesIO
 from django.core import serializers
 import xlwt
 from django.contrib.auth.decorators import login_required
-from msg.models import Msg
+from models.models import Msg
 
 @login_required
 @csrf_exempt

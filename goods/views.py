@@ -5,8 +5,8 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from goods.models import Goods
-from sale.models import GoodsType
+from models.models import Goods
+from models.models import GoodsType
 from sale_manage import settings
 import os
 from django.core import serializers

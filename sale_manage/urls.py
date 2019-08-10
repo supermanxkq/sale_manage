@@ -16,9 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from sale import views as sale_view
-from customer import views as customer_view
 from goods import views as goods_view
-from store import views as store_view
 from order import views as order_view
 from orderdetail import views as  order_detail_view
 from home import views as home_view
@@ -52,14 +50,7 @@ urlpatterns = [
     url(r'^query_goodstype_list/$', sale_view.query_goodstype_list, name='query_goodstype_list'),
     url(r'^queryNameCharacter/$', sale_view.queryNameCharacter, name='queryNameCharacter'),
     # 客户管理
-    url(r'^customer_list_page/$', customer_view.list_page, name='customer_list_page'),
-    url(r'^delete_customer/(?P<id>[0-9]+)$', customer_view.delete, name='delete_customer'),
-    url(r'^toCustomerAdd/$', customer_view.toAdd, name='toCustomerAdd'),
-    url(r'^add_customer/$', customer_view.add, name='add_customer'),
-    url(r'^export_customer/$', customer_view.export, name='export_customer'),
-    url(r'^query_customer_list/$', customer_view.query_customer_list, name='query_customer_list'),
-    url(r'^customer_edit/(?P<id>[0-9]+)$', customer_view.customer_edit, name='customer_edit'),
-    url(r'^customer_update/$', customer_view.customer_update, name='customer_update'),
+
     # 商品管理
     url(r'^goods_list_page/$', goods_view.list_page, name='goods_list_page'),
     url(r'^delete_goods/(?P<id>[0-9]+)$', goods_view.delete, name='delete_goods'),
@@ -70,10 +61,6 @@ urlpatterns = [
     url(r'^goods_edit/(?P<id>[0-9]+)$', goods_view.goods_edit, name='goods_edit'),
     url(r'^goods_update/$', goods_view.goods_update, name='goods_update'),
     #  库存管理
-    url(r'^store_list_page/$', store_view.list_page, name='store_list_page'),
-    url(r'^delete_store/(?P<id>[0-9]+)$', store_view.delete, name='delete_store'),
-    url(r'^toStoreAdd/$', store_view.toAdd, name='toStoreAdd'),
-    url(r'^add_store/$', store_view.add, name='add_store'),
     #  预警信息管理
     url(r'^queryMsgList/$', msg_view.queryMsgList, name='queryMsgList'),
 

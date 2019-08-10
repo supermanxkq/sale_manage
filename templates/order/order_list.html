@@ -256,7 +256,6 @@
                                         <th class="hidden-480">订单编号</th>
                                         <th class="hidden-480">商品</th>
                                         <th class="hidden-480">发货方式</th>
-                                        <th class="hidden-480">收货人</th>
                                         <th class="hidden-480">销售价格</th>
                                         <th class="hidden-480">总利润</th>
                                         <th class="hidden-480">状态</th>
@@ -279,7 +278,6 @@
                                                 {% else %}
                                                     <td class="hidden-480">无</td>
                                                 {% endifequal %}
-                                                <td class="hidden-480">{{ item.customer_id_id |query_CustomerName_by_id }}</td>
                                                 <td class="hidden-480">{{ item.total_price }}</td>
                                                 <td class="hidden-480">{{ item.total_price }}</td>
                                                 {% ifequal item.status 'ZC' %}
@@ -300,7 +298,7 @@
                                         {% endfor %}
                                     {% else %}
                                         <tr>
-                                            <td colspan="8" class="text-center">没有查找到数据</td>
+                                            <td colspan="11" class="text-center">没有查找到数据</td>
                                         </tr>
                                     {% endif %}
 

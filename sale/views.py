@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse
-from sale.models import User
-from sale.models import GoodsType
+from models.models import User
+from models.models import GoodsType
 import json
 from django.contrib import auth
 from django.http import JsonResponse, HttpResponseRedirect

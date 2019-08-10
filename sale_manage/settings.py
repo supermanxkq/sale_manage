@@ -37,13 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sale',
-    'customer',
     'goods',
     'order',
     'orderdetail',
-    'store',
-    'django_crontab',
     'msg',
+    'models',
     'cart',
     'desk',
 ]
@@ -158,7 +156,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img/upload_files').replace('\\', '/'
 # )
 USE_EMBER_STYLE_ATTRS = True
 
-AUTH_USER_MODEL = 'sale.User'  # 应用表 + 表名
+AUTH_USER_MODEL = 'models.User'  # 应用表 + 表名
 
 # session 设置
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 365  # 30分钟

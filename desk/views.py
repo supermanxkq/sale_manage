@@ -5,7 +5,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from  desk.models import Desk
+from  models.models import Desk
 from io import BytesIO
 import xlwt
 from django.contrib.auth.decorators import login_required

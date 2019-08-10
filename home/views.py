@@ -5,12 +5,11 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from  customer.models import Customer
 from io import BytesIO
 import xlwt
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
-from orderdetail.models import OrderDetail
+from models.models import OrderDetail
 from django.db.models import Sum
 
 

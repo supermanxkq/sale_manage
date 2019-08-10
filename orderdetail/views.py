@@ -6,7 +6,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from  orderdetail.models import OrderDetail
+from  models.models import OrderDetail
 from io import BytesIO
 import xlwt
 # 分页查询所有的供应商信息
