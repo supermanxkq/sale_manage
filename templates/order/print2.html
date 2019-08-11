@@ -2,10 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>WEB打印控件LODOP的样例二:打印当前页面的内容</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>WEB打印控件LODOP的样例二:打印当前页面的内容</title>
 
-<script language="javascript" src="/static/js/printer/LodopFuncs.js"></script>
+    <script language="javascript" src="/static/js/printer/LodopFuncs.js"></script>
     <style type="text/css">* {
         padding: 0;
         margin: 0
@@ -70,7 +70,7 @@
     <h1>小野点餐系统</h1><span>**************************</span>
     <div class="section1"><h3>线下支付预约</h3></div>
     <span>**************************</span>
-    {#    <div class="section2"><label>期望送达时间：""</label><label>订单备注：1111</label></div>#}
+    <div class="section2"><label>桌号：{{ desk_id }}</label><label>订单备注：1111</label></div>
     {#    <span>**************************</span>#}
     <div class="section3"><label>订单编号：567890</label><br/><label>下单时间：{{ date_now }}</label></div>
     <span>**************************</span>
@@ -102,61 +102,28 @@
         <span>**************************</span></div>
     <div class="section5">祝您用餐愉快！</div>
 </div>
-<a  href="javascript:void(0);" onclick="prn1_print()" style="font-size: 100px;">打印小票</a>
-<a href="javascript:prn1_print()">直接打印</a>
- <script type="text/javascript" src="/static/js/jquery-1.10.1.min.js"></script>
-<script language="javascript" type="text/javascript">
- var LODOP; //声明为全局变量
-	function prn1_preview() {
-		CreateOneFormPage();
-		LODOP.PREVIEW();
-	};
-	function prn1_print() {
-		CreateOneFormPage();
-		LODOP.PRINT();
-		window.location.href="/toOrderFood/";
-	};
-	function prn1_printA() {
-		CreateOneFormPage();
-		LODOP.PRINTA();
-	};
-	function CreateOneFormPage(){
-		LODOP=getLodop();
-		LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_表单一");
-		{#LODOP.SET_PRINT_STYLE("FontSize",10);#}
-		{#LODOP.SET_PRINT_STYLE("Bold",1);#}
-		{#LODOP.ADD_PRINT_TEXT(50,231,260,39,"打印页面部分内容");#}
-		LODOP.ADD_PRINT_HTM(10,5,"28mm","100mm",document.getElementById("print_container").innerHTML);
-		LODOP.SET_PRINT_PAGESIZE(1,"78mm","50mm","dl");
-	};
-	function prn2_preview() {
-		CreateTwoFormPage();
-		LODOP.PREVIEW();
-	};
-	function prn2_manage() {
-		CreateTwoFormPage();
-		LODOP.PRINT_SETUP();
-	};
-	function CreateTwoFormPage(){
-		LODOP=getLodop();
-		LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_表单二");
-		LODOP.ADD_PRINT_RECT(70,27,634,242,0,1);
-		LODOP.ADD_PRINT_TEXT(29,236,279,38,"页面内容改变布局打印");
-		LODOP.SET_PRINT_STYLEA(2,"FontSize",18);
-		LODOP.SET_PRINT_STYLEA(2,"Bold",1);
-		LODOP.ADD_PRINT_HTM(88,40,321,185,document.getElementById("form1").innerHTML);
-		LODOP.ADD_PRINT_HTM(87,355,285,187,document.getElementById("form2").innerHTML);
-		LODOP.ADD_PRINT_TEXT(319,58,500,30,"注：其中《表单一》按显示大小，《表单二》在程序控制宽度(285px)内自适应调整");
-        LODOP.ADD_PRINT_BARCODE(85,10,79,69,"QRCode","123456789012");
-	};
-	function prn3_preview(){
-		LODOP=getLodop();
-		LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_全页");
-		LODOP.ADD_PRINT_HTM(0,0,"100%","100%",document.documentElement.innerHTML);
-		LODOP.PREVIEW();
-	};
-
-
-</script>
+<a  class="prn1_print" href="/printOrder/" style="font-size: 100px;">打印小票</a>
+<script type="text/javascript" src="/static/js/jquery-1.10.1.min.js"></script>
+{#<script language="javascript" type="text/javascript">#}
+{#    $(function () {#}
+{#        var LODOP; //声明为全局变量#}
+{#        $(".prn1_print").click(function () {#}
+{#             CreateOneFormPage();#}
+{#            LODOP.PREVIEW();#}
+            {#LODOP.PRINT();#}
+            {#window.location.href = "/to_desk_status_list/";#}
+{#        });#}
+{#        function CreateOneFormPage() {#}
+{#            LODOP = getLodop();#}
+{#            LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_表单一");#}
+            {#LODOP.SET_PRINT_STYLE("FontSize",10);#}
+            {#LODOP.SET_PRINT_STYLE("Bold",1);#}
+            {#LODOP.ADD_PRINT_TEXT(50,231,260,39,"打印页面部分内容");#}
+{#            LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", $("#print_container").html());#}
+{#            LODOP.SET_PRINT_MODE("PRINT_PAGE_PERCENT", "Full-Width");//宽度自适应#}
+{#            LODOP.SET_PRINT_PAGESIZE(0, $("#print_container").offsetWidth, $("#print_container").offsetHeight, "");//0表示纵向打印#}
+{#        };#}
+{#    })#}
+{#</script>#}
 </body>
 </html>

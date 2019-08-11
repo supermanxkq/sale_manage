@@ -34,7 +34,7 @@ def query_cart_list(request):
 
 
 @login_required
-def toConfirmOrder(request):
+def toConfirmOrder(request,desk_id):
     user_id = request.user.id
     cart_list = Cart.objects.filter(cr_us_id_id=user_id)
     total_money = Decimal(0.0)

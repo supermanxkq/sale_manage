@@ -87,3 +87,13 @@ class OrderDetail(models.Model):
     goodsType_Name = models.CharField(max_length=20, default='')
     order_id = models.ForeignKey(Order, max_length=50, related_name='order_detail_order_id', to_field='order_code',
                                  on_delete=models.CASCADE)
+
+
+# 打印机设置
+class Printer(models.Model):
+    goodsType_id = models.ForeignKey(GoodsType, related_name='printer_goods_type_id', on_delete=models.CASCADE)
+    printer_name= models.CharField(max_length=20, default='')
+    ip_address= models.CharField(max_length=20, default='')
+    where_use= models.CharField(max_length=20, default='')
+    is_default= models.CharField(max_length=20, default='')
+    device_type= models.CharField(max_length=20, default='')

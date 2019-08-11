@@ -12,3 +12,6 @@ grant all privileges on *.* to 'root'@'%' identified by '0808XuKaiQiang..' with 
 flush privileges;
 
 0 rows
+
+
+PyQtWebEngine

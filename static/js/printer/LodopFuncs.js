@@ -45,7 +45,7 @@ function needCLodop() {
 
 //====页面引用CLodop云打印必须的JS文件,用双端口(8000和18000）避免其中某个被占用：====
 if (needCLodop()) {
-    var src1 = "http://192.168.0.121:8088/CLodopfuncs.js?priority=1";
+    var src1 = "http://192.168.0.109:8088/CLodopfuncs.js?priority=1";
     var src2 = "http://localhost:18000/CLodopfuncs.js?priority=0";
 
     var head = document.head || document.getElementsByTagName("head")[0] || document.documentElement;

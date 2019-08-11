@@ -23,6 +23,7 @@ from home import views as home_view
 from msg import views as msg_view
 from cart import views as cart_view
 from desk import views as desk_view
+from printer import views as printer_view
 app_name = "sale"
 urlpatterns = [
     url('admin/', admin.site.urls),
@@ -60,7 +61,6 @@ urlpatterns = [
     url(r'^queryGoodsById/$', goods_view.queryGoodsById, name='queryGoodsById'),
     url(r'^goods_edit/(?P<id>[0-9]+)$', goods_view.goods_edit, name='goods_edit'),
     url(r'^goods_update/$', goods_view.goods_update, name='goods_update'),
-    #  库存管理
     #  预警信息管理
     url(r'^queryMsgList/$', msg_view.queryMsgList, name='queryMsgList'),
 
@@ -68,10 +68,13 @@ urlpatterns = [
     url(r'^queryOrderList/$', order_view.queryOrderList, name='queryOrderList'),
     url(r'^delete_order/(?P<id>[0-9]+)$', order_view.delete, name='delete_order'),
     url(r'^toOrderAdd/$', order_view.toAdd, name='toOrderAdd'),
-    url(r'^toOrderFood/$', order_view.toOrderFood, name='toOrderFood'),
+    url(r'^OrderFood/(?P<desk_id>[0-9]+)$', order_view.OrderFood, name='OrderFood'),
     url(r'^add_order/$', order_view.add_order, name='add_order'),
     url(r'^queryTodayOrders/$', order_view.queryTodayOrder, name='queryTodayOrders'),
     url(r'^printOrder/$', order_view.printOrder, name='printOrder'),
+    # 桌台管理
+    url(r'^to_desk_status_list/$', desk_view.to_desk_status_list, name='to_desk_status_list'),
+    url(r'^open_desk/$', desk_view.open_desk, name='open_desk'),
 
     # 订单详情管理
     url(r'^queryOrderDetailList/(?P<order_code>[0-9]+)$', order_detail_view.queryOrderDetailList, name='queryOrderDetailList'),
@@ -85,7 +88,7 @@ urlpatterns = [
     # 购物车
     url(r'^addShopCart/$', cart_view.addShopCart, name='addShopCart'),
     url(r'^query_cart_list/$', cart_view.query_cart_list, name='query_cart_list'),
-    url(r'^toConfirmOrder/$', cart_view.toConfirmOrder, name='toConfirmOrder'),
+    url(r'^toConfirmOrder/(?P<desk_id>[0-9]+)$', cart_view.toConfirmOrder, name='toConfirmOrder'),
     url(r'^delete_cart/(?P<id>[0-9]+)$', cart_view.delete_cart, name='delete_cart'),
     # 桌台管理
     url(r'^desk_list_page/$', desk_view.desk_list_page, name='desk_list_page'),
@@ -94,5 +97,10 @@ urlpatterns = [
     url(r'^desk_edit/(?P<id>[0-9]+)$', desk_view.desk_edit, name='desk_edit'),
     url(r'^delete_desk/(?P<id>[0-9]+)$', desk_view.delete_desk, name='delete_desk'),
     url(r'^desk_update/$', desk_view.desk_update, name='desk_update'),
+    # 打印机设置
+    url(r'^printer_list_page/$', printer_view.printer_list_page, name='printer_list_page'),
+    url(r'^to_add_printer/$', printer_view.to_add_printer, name='to_add_printer'),
+    url(r'^printer_add/$', printer_view.printer_add, name='printer_add'),
+    url(r'^del_printer/(?P<id>[0-9]+)$', printer_view.del_printer, name='del_printer'),
 
 ]

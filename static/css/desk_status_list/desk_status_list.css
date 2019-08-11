@@ -1,0 +1,10 @@
+.goods_item{
+    border:1px solid gainsboro;
+    padding: 10px;
+    text-align: center;
+}
+
+.goods_item a{
+   font-size: 88px;
+    line-height: 70px;
+}

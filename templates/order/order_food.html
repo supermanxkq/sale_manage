@@ -170,13 +170,13 @@
 
                         <li>
 
-                            <a href="/toOrderFood/  ">点餐</a>
+                            <a href="/toOrderFood/{{ desk_id }}">点餐</a>
 
                             <i class="icon-angle-right"></i>
 
                         </li>
 
-                        <li><a href="#">点餐</a></li>
+                        <li><a href="#">桌台列表</a></li>
 
                     </ul>
 
@@ -204,7 +204,6 @@
                             {% endif %}
                         {% endfor %}
                     </ul>
-
                     <div class="tab-content">
                         {% for item in goods_list_disc %}
                             <div id="tab_2_{{ forloop.counter }}"
@@ -215,15 +214,16 @@
                                             <ul class="thumbnails">
                                         {% endif %}
                                         <li class="span3 goods_item">
-                                           <a data-name="{{ goods.name }}" data-id="{{ goods.id }}"
-                                                            data-sale-price="{{ goods.single_price }}"
+                                            <a data-name="{{ goods.name }}" data-id="{{ goods.id }}"
+                                               data-sale-price="{{ goods.single_price }}"
 
-                                                            data-toggle="modal"
-                                                            data-target="#orderFood" class="btn  order_food"><img src="{{ goods.img }}" style="width: 313px;height: 191px;"></a>
+                                               data-toggle="modal"
+                                               data-target="#orderFood" class="btn  order_food"><img
+                                                    src="{{ goods.img }}" style="width: 313px;height: 191px;"></a>
                                             <ul class="unstyled">
                                                 <li><h4>{{ goods.name }}</h4></li>
-{#                                                <li><h4>库存：{{ goods.id | queryStoreResidueByGoodsId }}</h4></li>#}
-                                                <li ><h4><strong
+                                                {#                                                <li><h4>库存：{{ goods.id | queryStoreResidueByGoodsId }}</h4></li>#}
+                                                <li><h4><strong
                                                         class="text-error">{{ goods.single_price }}元</strong>
                                                 </h4>
                                                 </li>
@@ -232,17 +232,17 @@
                                             <hr/>
                                             <div class="pull-right">
                                                 {#                                                <button type="button" class="btn red">查看</button>#}
-{#                                                {% ifequal goods.id|queryStoreResidueByGoodsId  '无' %}#}
-{#                                                    <a type="button" class="btn green" href="/toPurchaseAdd/">去采购#}
-{#                                                    </a>#}
-{#                                                {% else %}#}
-{#                                                    <button data-name="{{ goods.name }}" data-id="{{ goods.id }}"#}
-{#                                                            data-sale-price="{{ goods.single_price }}"#}
-{#                                                            type="button"#}
-{#                                                            data-toggle="modal"#}
-{#                                                            data-target="#orderFood" class="btn red order_food">加入购物车#}
-{#                                                    </button>#}
-{#                                                {% endifequal %}#}
+                                                {#                                                {% ifequal goods.id|queryStoreResidueByGoodsId  '无' %}#}
+                                                {#                                                    <a type="button" class="btn green" href="/toPurchaseAdd/">去采购#}
+                                                {#                                                    </a>#}
+                                                {#                                                {% else %}#}
+                                                {#                                                    <button data-name="{{ goods.name }}" data-id="{{ goods.id }}"#}
+                                                {#                                                            data-sale-price="{{ goods.single_price }}"#}
+                                                {#                                                            type="button"#}
+                                                {#                                                            data-toggle="modal"#}
+                                                {#                                                            data-target="#orderFood" class="btn red order_food">加入购物车#}
+                                                {#                                                    </button>#}
+                                                {#                                                {% endifequal %}#}
 
                                             </div>
                                         </li>
@@ -265,9 +265,9 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-{#                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">#}
-{##}
-{#                                        </button>#}‘
+                                        {#                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">#}
+                                        {##}
+                                        {#                                        </button>#}‘
                                         <h4 class="modal-title" id="myModalLabel">
                                             食品数量
                                         </h4>
@@ -305,8 +305,8 @@
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-{#                                       <button type="button" class="btn btn-default" data-dismiss="modal">关闭#}
-{#                                        </button>#}
+                                        {#                                       <button type="button" class="btn btn-default" data-dismiss="modal">关闭#}
+                                        {#                                        </button>#}
                                         <button type="button" class="btn red addShopCart">
                                             加入购物车
                                         </button>
@@ -390,7 +390,7 @@
                                 <a type="button" class="btn red query_cart_list" data-toggle="modal"
                                    data-target="#cart_list">查看购物车
                                 </a>
-                                <a class="btn red" href="/toConfirmOrder/">去结算</a>
+                                <a class="btn red" href="/toConfirmOrder/{{ desk_id }}">去结算</a>
                             </div>
                         </div>
 

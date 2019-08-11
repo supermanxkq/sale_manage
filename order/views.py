@@ -16,7 +16,12 @@ from decimal import Decimal
 from models.models import GoodsType
 from models.models import Goods
 from models.models import Cart
-
+from models.models import Desk
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtPrintSupport import QPrinterInfo, QPrinter
+import sys
+from PyQt5.QtWidgets import QApplication
 # 分页查询所有的供应商信息
 @login_required
 def queryOrderList(request):
@@ -37,7 +42,7 @@ def queryOrderList(request):
 
 # 进入点餐界面
 @login_required
-def toOrderFood(request):
+def OrderFood(request,desk_id):
     # 查询所有的商品分类
     goodsTypes = GoodsType.objects.all()
     # 根据商品分类查询对应的商品
@@ -46,6 +51,9 @@ def toOrderFood(request):
         goods_list = Goods.objects.filter(goodsType_id_id=item.id)
         goods_list_disc.append(goods_list)
     return render(request, 'order/order_food.html', locals())
+
+
+
 
 
 # 删除商品类型
@@ -133,12 +141,141 @@ def queryTodayOrder(request):
 @login_required
 @csrf_exempt
 def printOrder(request):
-    date_now = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-    user_id = request.user.id
-    cart_list = Cart.objects.filter(cr_us_id_id=user_id)
-    total_money = Decimal(0.0)
-    for goods in cart_list:
-        goods_db = Goods.objects.filter(id=goods.goods_id_id)
-        total_money += goods.num * goods_db[0].single_price
-    Cart.objects.all().delete()
+    # date_now = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+    # user_id = request.user.id
+    # cart_list = Cart.objects.filter(cr_us_id_id=user_id)
+    # total_money = Decimal(0.0)
+    # for goods in cart_list:
+    #     goods_db = Goods.objects.filter(id=goods.goods_id_id)
+    #     total_money += goods.num * goods_db[0].single_price
+    # # Cart.objects.all().delete()
+
+
+    app = QApplication(sys.argv)
+    ##########################################
+    html = """
+    <html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>WEB打印控件LODOP的样例二:打印当前页面的内容</title>
+
+    <script language="javascript" src="/static/js/printer/LodopFuncs.js"></script>
+    <style type="text/css">* {
+        padding: 0;
+        margin: 0
+    }
+
+    h1 {
+        font-size: 20px
+    }
+
+    h3 {
+        font-size: 16px
+    }
+
+    .left {
+        float: left
+    }
+
+    .right {
+        float: right
+    }
+
+    .clearfix {
+        clear: both
+    }
+
+    ul {
+        list-style: none
+    }
+
+    .print_container {
+        padding: 0px;
+        width: 188px
+    }
+
+    .section2 label {
+        display: block
+    }
+
+    .section3 label {
+        display: block
+    }
+
+    .section4 .total label {
+        display: block
+    }
+
+    .section4 .other_fee {
+        border-bottom: 1px solid #dadada
+    }
+
+    .section12 {
+        margin-left: 50px;
+    }
+
+    .section5 label {
+        display: block
+    }</style>
+
+</head>
+<body>
+<div class="print_container" id="print_container">
+    <h1>小野点餐系统</h1><span>**************************</span>
+    <div class="section1"><h3>线下支付预约</h3></div>
+    <span>**************************</span>
+    <div class="section2"><label>桌号：{{ desk_id }}</label><label>订单备注：1111</label></div>
+    {#    <span>**************************</span>#}
+    <div class="section3"><label>订单编号：567890</label><br/><label>下单时间：{{ date_now }}</label></div>
+    <span>**************************</span>
+    <div class="section4">
+        <div style="border-bottom: 1px solid #DADADA;">
+            <table style="width: 100%;">
+                <thead>
+                <tr>
+                    <td width="40%">品名</td>
+                    <td width="25%">数量</td>
+                    <td width="25%">金额</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for goods in cart_list %}
+                    <tr>
+                        <td>{{ goods.goods_name }}</td>
+                        <td>{{ goods.num }}</td>
+                        <td>{{ goods.num | calc_total:goods.goods_id_id }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="total"><label class="left">总计</label><label class="right">{{ total_money }}</label>
+            <div class="clearfix"></div>
+        </div>
+        <div style="text-align: right;"><label>顾客已付款</label></div>
+        <span>**************************</span></div>
+    <div class="section5">祝您用餐愉快！</div>
+</div>
+</body>
+</html>
+    """
+    p = "GP-5890X Series"  # 打印机名称
+    # Printer.printing(p, html)
+    # Printer.printerList()
+    printing_22(request,p, html)
     return render(request, 'order/print2.html', locals())
+
+
+@login_required
+def printing_22(request,printer, context):
+    printerInfo = QPrinterInfo()
+    p = QPrinter()
+    for item in printerInfo.availablePrinters():
+        if printer == item.printerName():
+            p = QPrinter(item)
+            doc = QTextDocument()
+            doc.setHtml(u'%s' % context)
+            doc.setPageSize(QSizeF(p.logicalDpiX()*(297/25.4),
+            p.logicalDpiY()*(297/25.4)))
+            p.setOutputFormat(QPrinter.NativeFormat)
+            doc.print_(p)

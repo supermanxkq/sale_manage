@@ -1,0 +1,255 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load app_main %}
+{% load myfilter %}
+
+{% block meta %}
+    <meta name="keywords" content="桌台列表"/>
+    <meta name="description" content="桌台列表"/>
+{% endblock %}
+
+{% block title %}
+    <title>桌台列表</title>
+{% endblock %}
+
+{% block linkcss %}
+    <link rel="stylesheet" href="/static/css/DT_bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/select2_metro.css" type="text/css"/>
+    <link href="/static/css/search.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/order/order_food.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/jquery.fancybox.css" rel="stylesheet"/>
+    <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/desk_status_list/desk_status_list.css" rel="stylesheet" type="text/css"/>
+
+{% endblock %}
+{% block bBody %}
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+
+    <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+    <div id="portlet-config" class="modal hide">
+
+        <div class="modal-header">
+
+            <button data-dismiss="modal" class="close" type="button"></button>
+
+            <h3>portlet Settings</h3>
+
+        </div>
+
+        <div class="modal-body">
+
+            <p>Here will be a configuration form</p>
+
+        </div>
+
+    </div>
+
+    <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+    <!-- BEGIN PAGE CONTAINER-->
+
+    <div class="container-fluid">
+
+    <!-- BEGIN PAGE HEADER-->
+
+    <div class="row-fluid">
+
+        <div class="span12">
+
+            <!-- BEGIN STYLE CUSTOMIZER -->
+
+            <div class="color-panel hidden-phone">
+
+                <div class="color-mode-icons icon-color"></div>
+
+                <div class="color-mode-icons icon-color-close"></div>
+
+                <div class="color-mode">
+
+                    <p>THEME COLOR</p>
+
+                    <ul class="inline">
+
+                        <li class="color-black current color-default" data-style="default"></li>
+
+                        <li class="color-blue" data-style="blue"></li>
+
+                        <li class="color-brown" data-style="brown"></li>
+
+                        <li class="color-purple" data-style="purple"></li>
+
+                        <li class="color-grey" data-style="grey"></li>
+
+                        <li class="color-white color-light" data-style="light"></li>
+
+                    </ul>
+
+                    <label>
+
+                        <span>Layout</span>
+
+                        <select class="layout-option m-wrap small">
+
+                            <option value="fluid" selected>Fluid</option>
+
+                            <option value="boxed">Boxed</option>
+
+                        </select>
+
+                    </label>
+
+                    <label>
+
+                        <span>Header</span>
+
+                        <select class="header-option m-wrap small">
+
+                            <option value="fixed" selected>Fixed</option>
+
+                            <option value="default">Default</option>
+
+                        </select>
+
+                    </label>
+
+                    <label>
+
+                        <span>Sidebar</span>
+
+                        <select class="sidebar-option m-wrap small">
+
+                            <option value="fixed">Fixed</option>
+
+                            <option value="default" selected>Default</option>
+
+                        </select>
+
+                    </label>
+
+                    <label>
+
+                        <span>Footer</span>
+
+                        <select class="footer-option m-wrap small">
+
+                            <option value="fixed">Fixed</option>
+
+                            <option value="default" selected>Default</option>
+
+                        </select>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+            <!-- END BEGIN STYLE CUSTOMIZER -->
+
+            <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+
+            <h3 class="page-title">
+
+                桌台列表
+                <small>显示当前所有桌台的状态。</small>
+
+            </h3>
+
+            <ul class="breadcrumb">
+
+                <li>
+
+                    <i class="icon-home"></i>
+
+                    <a href="/home/">首页</a>
+
+                    <i class="icon-angle-right"></i>
+
+                </li>
+
+                <li>
+
+                    <a href="#">点餐</a>
+
+                    <i class="icon-angle-right"></i>
+
+                </li>
+
+                <li><a href="#">桌台列表</a></li>
+
+            </ul>
+
+            <!-- END PAGE TITLE & BREADCRUMB-->
+
+        </div>
+
+    </div>
+
+    <!-- END PAGE HEADER-->
+
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row-fluid">
+
+    <div class="tabbable tabbable-custom tabbable-full-width">
+        <div class="tab-content">
+            {% for item in desks %}
+                {% if forloop.counter0|divisibleby:4 %}
+                    <ul class="thumbnails">
+                {% endif %}
+                <li class="span3 goods_item">
+                    <a href="#" style="">{{ item.name }}</a>
+                    <ul class="unstyled">
+                        <li><h4>
+                            {% ifequal item.status 'YCJ' %}
+                                已创建
+                            {% endifequal %}
+                            {% ifequal item.status 'YKT' %}
+                                已开台
+                            {% endifequal %}
+                        </h4></li>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                    <hr/>
+                    <div class="pull-right">
+                        {% ifequal item.status 'YCJ' %}
+                            <button type="button" class="btn red open_desk" data-desk-id="{{ item.id }}">开台</button>
+                        {% endifequal %}
+                        <a   href="/OrderFood/{{ item.id }}" class="btn green ">点餐</a>
+
+                    </div>
+
+                </li>
+                <div class="spac40"></div>
+            {% endfor %}
+            <!--end tabbable-->
+
+
+            <!-- END PAGE CONTENT-->
+
+        </div>
+
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+    <!-- END PAGE -->
+{% endblock %}
+{% block bJs %}
+    {#    <script src="/static/js/table-managed.js" type="text/javascript"></script>#}
+    {#    <script type="text/javascript" src="/static/js/jquery.dataTables.js"></script>#}
+    {#    <script>#}
+    {#        jQuery(document).ready(function () {#}
+    {##}
+    {#            App.init();#}
+    {##}
+    {#            TableManaged.init();#}
+    {##}
+    {#        });#}
+    {#    </script>#}
+    <script src="/static/js/search.js"></script>
+    <script src="/static/js/jquery.fancybox.pack.js"></script>
+    <script src="/static/js/desk_status_list/desk_status_list.js"></script>
+
+{% endblock %}

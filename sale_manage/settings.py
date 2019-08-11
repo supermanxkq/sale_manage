@@ -24,7 +24,7 @@ SECRET_KEY = ')zfd($*7oth!$r!62gimmk#_11ds_(828g1q22aelj3!b7w8b('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.100', '192.168.0.101', '127.0.0.1', '192.168.0.121', '192.168.1.102', 'localhost',
+ALLOWED_HOSTS = ['192.168.1.101','192.168.1.109', '192.168.0.101', '127.0.0.1', '192.168.0.121', '192.168.1.102', 'localhost',
                  '192.168.0.103', '192.168.30.79', '172.20.10.3', '172.20.10.7', '172.16.136.148']
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'models',
     'cart',
     'desk',
+    'printer',
 ]
 
 MIDDLEWARE = [
@@ -98,7 +99,7 @@ DATABASES = {
         'NAME': 'sale_manage',  # 你要存储数据的库名，事先要创建之
         'USER': 'root',  # 数据库用户名
         'PASSWORD': '0808XuKaiQiang..',  # 密码
-        'HOST': 'localhost',  # 主机
+        'HOST': '192.168.1.101',  # 主机
         'PORT': '3306',  # 数据库使用的端口
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
