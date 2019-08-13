@@ -250,4 +250,5 @@ def get_acronym(str_data):
     :param str_data: 字符串
     :return: 字符串
     """
+
     return "".join([i[0][0] for i in pinyin(str_data)]).upper()

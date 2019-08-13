@@ -103,4 +103,8 @@ urlpatterns = [
     url(r'^printer_add/$', printer_view.printer_add, name='printer_add'),
     url(r'^del_printer/(?P<id>[0-9]+)$', printer_view.del_printer, name='del_printer'),
 
+
+    #打印机测试的功能
+    url(r'^printer_test/$', printer_view.printer_test, name='printer_test'),
+
 ]

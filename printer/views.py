@@ -17,6 +17,7 @@ from models.models import Printer
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtPrintSupport import QPrinterInfo, QPrinter
+from system.Printer import Printer as Dprinter
 
 @login_required
 def printer_list_page(request):
@@ -67,4 +68,12 @@ def printerList(request):
 @login_required
 def del_printer(request, id):
     Printer.objects.filter(id=id).delete()
+    return HttpResponseRedirect('/printer_list_page/')
+
+
+
+def printer_test(request):
+    data_url=request.POST.get('data_url')
+    dprinter=Dprinter()
+    dprinter.print_(data_url)
     return HttpResponseRedirect('/printer_list_page/')

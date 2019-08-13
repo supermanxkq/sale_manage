@@ -99,7 +99,7 @@ DATABASES = {
         'NAME': 'sale_manage',  # 你要存储数据的库名，事先要创建之
         'USER': 'root',  # 数据库用户名
         'PASSWORD': '0808XuKaiQiang..',  # 密码
-        'HOST': '192.168.1.101',  # 主机
+        'HOST': 'localhost',  # 主机
         'PORT': '3306',  # 数据库使用的端口
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
