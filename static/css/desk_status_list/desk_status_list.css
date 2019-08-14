@@ -4,7 +4,7 @@
     text-align: center;
 }
 
-.goods_item a{
+.goods_item>.desk_name{
    font-size: 88px;
     line-height: 70px;
 }

@@ -75,7 +75,7 @@ def to_desk_status_list(request):
 def open_desk(request):
     desk_id=request.POST.get("desk_id","id")
     desk=Desk.objects.get(id=desk_id)
-    desk.status='YKT'
+    desk.status='YKT' #已开台
     desk.save()
     return HttpResponse(json.dumps({'status':'ok'}))
 
