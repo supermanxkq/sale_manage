@@ -69,7 +69,7 @@ urlpatterns = [
     url(r'^delete_order/(?P<id>[0-9]+)$', order_view.delete, name='delete_order'),
     url(r'^toOrderAdd/$', order_view.toAdd, name='toOrderAdd'),
     url(r'^OrderFood/(?P<desk_id>[0-9]+)$', order_view.OrderFood, name='OrderFood'),
-    url(r'^add_order/$', order_view.add_order, name='add_order'),
+    url(r'^add_order/(?P<desk_id>[0-9]+)$', order_view.add_order, name='add_order'),
     url(r'^queryTodayOrders/$', order_view.queryTodayOrder, name='queryTodayOrders'),
     url(r'^printOrder/$', order_view.printOrder, name='printOrder'),
     # 桌台管理

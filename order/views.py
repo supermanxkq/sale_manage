@@ -4,7 +4,7 @@ import json
 from django.contrib import auth
 from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
-
+import sys, base64
 import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from  models.models import Order
@@ -17,11 +17,16 @@ from models.models import GoodsType
 from models.models import Goods
 from models.models import Cart
 from models.models import Desk
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtPrintSupport import QPrinterInfo, QPrinter
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import QObject, pyqtSlot, QUrl
+from PyQt5.QtWebChannel import QWebChannel
+from PyQt5.QtPrintSupport import QPrinter, QPrinterInfo
+from PyQt5.QtGui import QPainter, QImage
+import sys, base64
+from system.Printer import Printer
 import sys
 from PyQt5.QtWidgets import QApplication
+from django.utils import timezone
 # 分页查询所有的供应商信息
 @login_required
 def queryOrderList(request):
@@ -71,33 +76,31 @@ def toAdd(request):
 # 添加
 @login_required
 @csrf_exempt
-def add_order(request):
+def add_order(request, desk_id):
+    # 获取界面传递的参数
     order_code = get_order_code()
-    customer_id_id = request.POST.get('customer_id_id', 'customer_id_id')
-    description = request.POST.get('description', 'description')
-    code = request.POST.get('code', 'code')
-    user_id_id = request.POST.get('user_id_id', 'user_id_id')
-    total_price = request.POST.get('total_price', 0)
-    delivery = request.POST.get('delivery', 'delivery')
-    mark = request.POST.get('mark', '无')
-    bussnessDate = request.POST.get('bussnessDate', 'bussnessDate')
-    nums = request.POST.getlist('num')
-    goods_id = request.POST.getlist('goods_id')
-    goods_names = request.POST.getlist('goods_name')
-    print(request.POST)
-    merchant_id_id = 1
-    sale_price = 1
-    Order.objects.create(order_code=order_code, bussnessDate=bussnessDate, customer_id_id=customer_id_id,
-                         user_id_id=user_id_id, total_price=total_price, status='ZC', mark=mark, delivery=delivery)
-    for i in range(0, len(nums)):
-        OrderDetail.objects.create(goods_name=goods_names[i], num=nums[i], goods_id_id=goods_id[i],
-                                   order_id_id=order_code, merchant_id_id=merchant_id_id, sale_price=sale_price)
-    return JsonResponse({'status': 'ok'})
+    user_id_id = request.user.id
+    time_now = timezone.now().strftime("%Y-%m-%d %H:%I:%S");
+    # 根据用户ID获取用户的购物车商品
+    cart_list=Cart.objects.filter(cr_us_id=user_id_id)
+    # 逻辑出添加订单的必要参数
+    total_price=Decimal(0.0)
+    for cart in cart_list:
+        total_price += cart.sale_price*cart.num
+    # 添加订单信息
+    Order.objects.create(order_code=order_code, desk_id_id=desk_id, bussnessDate=time_now, user_id_id=user_id_id, total_price=total_price, status='YTJ', mark="无")
+    # 添加订单详情的信息
+    for cart in cart_list:
+        OrderDetail.objects.create(goods_name=cart.goods_name, num=cart.num, goods_id_id=cart.goods_id_id,
+                                   order_id_id=order_code,  sale_price=cart.sale_price)
+    # 清空购物车中的商品信息
+    # Cart.objects.all().delete()
+    return render(request, 'order/print_order.html', locals())
 
 
 # 生成订单号
 def get_order_code():
-    order_no = str(time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))) + str(time.time()).replace('.', '')[-7:]
+    order_no = str(time.strftime('%Y%m%d%H%M%S', time.localtime(time.time())))
     return order_no
 
 
@@ -141,141 +144,31 @@ def queryTodayOrder(request):
 @login_required
 @csrf_exempt
 def printOrder(request):
-    # date_now = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-    # user_id = request.user.id
-    # cart_list = Cart.objects.filter(cr_us_id_id=user_id)
-    # total_money = Decimal(0.0)
-    # for goods in cart_list:
-    #     goods_db = Goods.objects.filter(id=goods.goods_id_id)
-    #     total_money += goods.num * goods_db[0].single_price
-    # # Cart.objects.all().delete()
-
-
     app = QApplication(sys.argv)
-    ##########################################
-    html = """
-    <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>WEB打印控件LODOP的样例二:打印当前页面的内容</title>
-
-    <script language="javascript" src="/static/js/printer/LodopFuncs.js"></script>
-    <style type="text/css">* {
-        padding: 0;
-        margin: 0
-    }
-
-    h1 {
-        font-size: 20px
-    }
-
-    h3 {
-        font-size: 16px
-    }
-
-    .left {
-        float: left
-    }
-
-    .right {
-        float: right
-    }
-
-    .clearfix {
-        clear: both
-    }
-
-    ul {
-        list-style: none
-    }
-
-    .print_container {
-        padding: 0px;
-        width: 188px
-    }
-
-    .section2 label {
-        display: block
-    }
-
-    .section3 label {
-        display: block
-    }
-
-    .section4 .total label {
-        display: block
-    }
-
-    .section4 .other_fee {
-        border-bottom: 1px solid #dadada
-    }
-
-    .section12 {
-        margin-left: 50px;
-    }
-
-    .section5 label {
-        display: block
-    }</style>
-
-</head>
-<body>
-<div class="print_container" id="print_container">
-    <h1>小野点餐系统</h1><span>**************************</span>
-    <div class="section1"><h3>线下支付预约</h3></div>
-    <span>**************************</span>
-    <div class="section2"><label>桌号：{{ desk_id }}</label><label>订单备注：1111</label></div>
-    {#    <span>**************************</span>#}
-    <div class="section3"><label>订单编号：567890</label><br/><label>下单时间：{{ date_now }}</label></div>
-    <span>**************************</span>
-    <div class="section4">
-        <div style="border-bottom: 1px solid #DADADA;">
-            <table style="width: 100%;">
-                <thead>
-                <tr>
-                    <td width="40%">品名</td>
-                    <td width="25%">数量</td>
-                    <td width="25%">金额</td>
-                </tr>
-                </thead>
-                <tbody>
-                {% for goods in cart_list %}
-                    <tr>
-                        <td>{{ goods.goods_name }}</td>
-                        <td>{{ goods.num }}</td>
-                        <td>{{ goods.num | calc_total:goods.goods_id_id }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="total"><label class="left">总计</label><label class="right">{{ total_money }}</label>
-            <div class="clearfix"></div>
-        </div>
-        <div style="text-align: right;"><label>顾客已付款</label></div>
-        <span>**************************</span></div>
-    <div class="section5">祝您用餐愉快！</div>
-</div>
-</body>
-</html>
-    """
-    p = "GP-5890X Series"  # 打印机名称
+    data_url=request.POST.get('data_url')
+    new_data_url=data_url.replace('data:image/png;base64,', '')
+    # print(new_data_url)
+    p = "DL-581PW"  # 打印机名称
     # Printer.printing(p, html)
     # Printer.printerList()
-    printing_22(request,p, html)
-    return render(request, 'order/print2.html', locals())
-
-
-@login_required
-def printing_22(request,printer, context):
+    printer=Printer()
     printerInfo = QPrinterInfo()
-    p = QPrinter()
-    for item in printerInfo.availablePrinters():
-        if printer == item.printerName():
-            p = QPrinter(item)
-            doc = QTextDocument()
-            doc.setHtml(u'%s' % context)
-            doc.setPageSize(QSizeF(p.logicalDpiX()*(297/25.4),
-            p.logicalDpiY()*(297/25.4)))
-            p.setOutputFormat(QPrinter.NativeFormat)
-            doc.print_(p)
+    printer.print_(new_data_url, p)
+    # printing_22(request,p,  new_data_url)
+    # sys.exit(app.exec_())
+    return HttpResponse(json.dumps({'result':'ok'}))
+
+
+# @login_required
+# def printing_22(request,printer, context):
+#     printerInfo = QPrinterInfo()
+#     p = QPrinter()
+#     for item in printerInfo.availablePrinters():
+#         if printer == item.printerName():
+#             p = QPrinter(item)
+#             doc = QTextDocument()
+#             doc.setHtml(u'%s' % context)
+#             doc.setPageSize(QSizeF(p.logicalDpiX()*(297/25.4),
+#             p.logicalDpiY()*(297/25.4)))
+#             p.setOutputFormat(QPrinter.NativeFormat)
+#             doc.print_(p)

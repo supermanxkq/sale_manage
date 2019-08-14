@@ -69,12 +69,11 @@ class Order(models.Model):
     order_code = models.CharField(max_length=50, default='', unique=True)
     status = models.CharField(max_length=5, default='')
     create_time = models.DateTimeField(default=timezone.now)
-    bussnessDate = models.DateField(default=timezone.now)
+    bussnessDate = models.DateTimeField(default=timezone.now)
     user_id = models.ForeignKey(User, related_name='order_user_id', on_delete=models.CASCADE)
     mark = models.CharField(max_length=100, default='')
     total_price = models.DecimalField(decimal_places=2, max_digits=10)
-    total_profit = models.DecimalField(decimal_places=2, max_digits=10)
-    delivery = models.CharField(max_length=100, default='')
+    desk_id = models.ForeignKey(Desk, related_name='order_desk_id', on_delete=models.CASCADE)
 
 
 # 订单详情表
@@ -83,8 +82,6 @@ class OrderDetail(models.Model):
     goods_name = models.CharField(max_length=20)
     num = models.IntegerField()
     sale_price = models.DecimalField(decimal_places=2, max_digits=10)
-    goodsType_id = models.ForeignKey(GoodsType, related_name='order_detail_goods_type_id', on_delete=models.CASCADE)
-    goodsType_Name = models.CharField(max_length=20, default='')
     order_id = models.ForeignKey(Order, max_length=50, related_name='order_detail_order_id', to_field='order_code',
                                  on_delete=models.CASCADE)
 
@@ -92,7 +89,7 @@ class OrderDetail(models.Model):
 # 打印机设置
 class Printer(models.Model):
     goodsType_id = models.ForeignKey(GoodsType, related_name='printer_goods_type_id', on_delete=models.CASCADE)
-    printer_name= models.CharField(max_length=20, default='')
+    printer_name= models.CharField(max_length=50, default='')
     ip_address= models.CharField(max_length=20, default='')
     where_use= models.CharField(max_length=20, default='')
     is_default= models.CharField(max_length=20, default='')

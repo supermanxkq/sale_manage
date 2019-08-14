@@ -1,0 +1,127 @@
+{% load myfilter %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用PyQt5打印热敏小票</title>
+</head>
+ <style type="text/css">
+     body{font-size: 14px;}
+     * {
+        padding: 0;
+        margin: 0
+    }
+
+    h1 {
+        font-size: 20px
+    }
+
+    h3 {
+        font-size: 16px
+    }
+
+    .left {
+        float: left
+    }
+
+    .right {
+        float: right
+    }
+
+    .clearfix {
+        clear: both
+    }
+
+    ul {
+        list-style: none
+    }
+
+    .print_container {
+        padding: 0px;
+        width: 158px
+    }
+
+    .section2 label {
+        display: block
+    }
+
+    .section3 label {
+        display: block
+    }
+
+    .section4 .total label {
+        display: block
+    }
+
+    .section4 .other_fee {
+        border-bottom: 1px solid #dadada
+    }
+
+    .section12 {
+        margin-left: 50px;
+    }
+
+    .section5 label {
+        display: block
+    }</style>
+<body>
+<div class="print_container" id="print_container">
+    <h1>小野点餐系统</h1><span>**************************</span>
+    <div class="section1"><h3>线下支付预约</h3></div>
+    <span>**************************</span>
+    <div class="section2"><label>桌号：{{ desk_id }}</label></div>
+        <span>**************************</span>
+    <div class="section3"><label>订单编号：{{order_code}}</label><label>下单时间：{{ time_now }}</label></div>
+    <span>**************************</span>
+    <div class="section4">
+        <div style="border-bottom: 1px solid #DADADA;">
+            <table style="width: 100%;">
+                <thead>
+                <tr>
+                    <td width="40%">品名</td>
+                    <td width="25%">数量</td>
+                    <td width="25%">金额</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for goods in cart_list %}
+                    <tr>
+                        <td>{{ goods.goods_name }}</td>
+                        <td>{{ goods.num }}</td>
+                        <td>{{ goods.sale_price | calc_total:goods.num}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="total"><label class="left">总计</label><label class="right">{{ total_price }}</label>
+            <div class="clearfix"></div>
+        </div>
+        <div style="text-align: right;"><label>顾客已付款</label></div>
+        <span>**************************</span></div>
+    <div class="section5">祝您用餐愉快！</div>
+</div>
+<script type="text/javascript" src="/static/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="/static/js/printer/html2canvas.js"></script>
+<script language="javascript" type="text/javascript">
+    $(function () {
+         html2canvas($("#print_container")).then(function(canvas) {
+        {#document.body.appendChild(canvas);#}
+        var data_param={"data_url":canvas.toDataURL()};
+        $.ajax({
+            data:data_param,
+            url:'/printOrder/',
+            type:'post',
+            dataType:'json',
+            success:function (res) {
+                if(res.result=='ok'){
+                window.location.href="/to_desk_status_list/";
+                }
+            }
+        });
+    })
+    });
+</script>
+</body>
+</body>
+</html>

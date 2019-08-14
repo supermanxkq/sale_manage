@@ -253,11 +253,11 @@
 
                                     <tr>
                                         <th>编号</th>
+                                        <th class="hidden-480">桌号</th>
                                         <th class="hidden-480">订单编号</th>
                                         <th class="hidden-480">商品</th>
                                         <th class="hidden-480">发货方式</th>
-                                        <th class="hidden-480">销售价格</th>
-                                        <th class="hidden-480">总利润</th>
+                                        <th class="hidden-480">总金额</th>
                                         <th class="hidden-480">状态</th>
                                         <th class="hidden-480">业务日期</th>
                                         <th class="hidden-480">创建时间</th>
@@ -271,6 +271,7 @@
                                         {% for item in merchants_list %}
                                             <tr class="odd gradeX">
                                                 <td>{{ item.id }}</td>
+                                                <td>{{ item.desk_id_id }}</td>
                                                 <td>{{ item.order_code }}</td>
                                                 <td class="hidden-480">{{ item.order_code | query_img_by_orderId |safe }}</td>
                                                 {% ifequal item.delivery 'ZT' %}
@@ -279,13 +280,13 @@
                                                     <td class="hidden-480">无</td>
                                                 {% endifequal %}
                                                 <td class="hidden-480">{{ item.total_price }}</td>
-                                                <td class="hidden-480">{{ item.total_price }}</td>
                                                 {% ifequal item.status 'ZC' %}
                                                     <td class="hidden-480">正常</td>
-                                                {% else %}
-                                                    <td class="hidden-480"> 不正常</td>
+                                                    {% endifequal %}
+                                                {% ifequal item.status 'YTJ' %}
+                                                    <td class="hidden-480"> 已提交</td>
                                                 {% endifequal %}
-                                                <td class="hidden-480">{{ item.bussnessDate |date:"Y-m-d" }}</td>
+                                                <td class="hidden-480">{{ item.bussnessDate |date:"Y-m-d H:i:s" }}</td>
                                                 <td class="hidden-480">{{ item.create_time |date:"Y-m-d H:i:s" }}</td>
                                                 <td class="hidden-480">{{ item.mark | truncatechars:10 }}</td>
                                                 <td class="center hidden-480"><a
@@ -293,6 +294,8 @@
                                                                                                      style="font-size: 17px;"></i></a>
                                                       <a href="{% url 'queryOrderDetailList' item.order_code %}"><i class="icon-file-text-alt"
                                                                   style="font-size: 17px;"></i> </a>
+                                                    <a href="{% url 'delete_order' item.id %}"><i class="icon-trash"
+                                                                                                    style="font-size: 17px;"></i> </a>
                                                 </td>
                                             </tr>
                                         {% endfor %}

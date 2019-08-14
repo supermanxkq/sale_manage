@@ -60,8 +60,7 @@ def query_single_price_by_id(value):
 
 
 @register.filter(is_safe=True)
-def calc_total(num, goods_id):
-    goods = Goods.objects.get(pk=goods_id)
-    return goods.single_price * num
+def calc_total(price,num):
+    return price * num
 
 
