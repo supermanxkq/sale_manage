@@ -211,12 +211,12 @@
                             {% ifequal item.status 'YCZ' %}
                                 用餐中
                             {% endifequal %}
-                           {% ifequal item.status 'YJZ' %}
+                            {% ifequal item.status 'YJZ' %}
                                 已结账
                             {% endifequal %}
-                          {% ifequal item.status 'YSC' %}
-                               已删除
-                           {% endifequal %}
+                            {% ifequal item.status 'YSC' %}
+                                已删除
+                            {% endifequal %}
                         </h4></li>
                         </li>
                     </ul>
@@ -225,8 +225,10 @@
                     <div class="pull-right">
                         {% ifequal item.status 'YCJ' %}
                             <button type="button" class="btn red open_desk" data-desk-id="{{ item.id }}">开台</button>
+                        {% else %}
+                            <a  data-toggle="modal" data-target="#settleOrder"  class="btn red settleOrder">结账</a>
+                            <a href="/OrderFood/{{ item.id }}" class="btn green ">点餐</a>
                         {% endifequal %}
-                        <a   href="/OrderFood/{{ item.id }}" class="btn green ">点餐</a>
 
                     </div>
 
@@ -243,6 +245,63 @@
         <!-- END PAGE CONTAINER-->
 
     </div>
+    <!--结账界面-->
+    <div class="modal fade" id="settleOrder" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {#                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">#}
+                    {##}
+                    {#                                        </button>#}
+                    <h4 class="modal-title" id="myModalLabel">
+                        结账界面
+                    </h4>
+                </div>
+                <div class="modal-body form">
+                    <form method="post"
+                          class="form-horizontal addShopCartForm">
+                        {% csrf_token %}
+                        <input type="hidden" name="goods_id" id="goods_id"/>
+                        <input type="hidden" name="sale_price" class="sale_price"/>
+                        <div class="control-group">
+
+                            <label class="control-label"><span
+                                    class="required">*</span>商品名称：</label>
+
+                            <div class="controls">
+                                {#                    <p id="goods_name" class="span6 m-wrap"></p>#}
+                                <input type="text" name="goods_name" data-required="1" readonly
+                                       class="span6 m-wrap goods_name"/>
+
+                            </div>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label class="control-label"><span class="required">*</span>数量：</label>
+
+                            <div class="controls">
+                                <input class="span6 m-wrap goods_num" rows="3" name="num"
+                                       type="number"/>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    {#                                       <button type="button" class="btn btn-default" data-dismiss="modal">关闭#}
+                    {#                                        </button>#}
+                    <button type="button" class="btn red addShopCart">
+                        加入购物车
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
     <!-- END PAGE -->
 {% endblock %}
 {% block bJs %}
