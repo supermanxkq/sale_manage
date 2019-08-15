@@ -256,7 +256,6 @@
                                         <th class="hidden-480">桌号</th>
                                         <th class="hidden-480">订单编号</th>
                                         <th class="hidden-480">商品</th>
-                                        <th class="hidden-480">发货方式</th>
                                         <th class="hidden-480">总金额</th>
                                         <th class="hidden-480">状态</th>
                                         <th class="hidden-480">业务日期</th>
@@ -274,11 +273,6 @@
                                                 <td>{{ item.desk_id_id }}</td>
                                                 <td>{{ item.order_code }}</td>
                                                 <td class="hidden-480">{{ item.order_code | query_img_by_orderId |safe }}</td>
-                                                {% ifequal item.delivery 'ZT' %}
-                                                    <td class="hidden-480">自提</td>
-                                                {% else %}
-                                                    <td class="hidden-480">无</td>
-                                                {% endifequal %}
                                                 <td class="hidden-480">{{ item.total_price }}</td>
                                                 {% ifequal item.status 'ZC' %}
                                                     <td class="hidden-480">正常</td>

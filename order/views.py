@@ -77,24 +77,47 @@ def toAdd(request):
 @login_required
 @csrf_exempt
 def add_order(request, desk_id):
-    # 获取界面传递的参数
-    order_code = get_order_code()
-    user_id_id = request.user.id
-    time_now = timezone.now().strftime("%Y-%m-%d %H:%I:%S");
-    # 根据用户ID获取用户的购物车商品
-    cart_list=Cart.objects.filter(cr_us_id=user_id_id)
-    # 逻辑出添加订单的必要参数
-    total_price=Decimal(0.0)
-    for cart in cart_list:
-        total_price += cart.sale_price*cart.num
-    # 添加订单信息
-    Order.objects.create(order_code=order_code, desk_id_id=desk_id, bussnessDate=time_now, user_id_id=user_id_id, total_price=total_price, status='YTJ', mark="无")
-    # 添加订单详情的信息
-    for cart in cart_list:
-        OrderDetail.objects.create(goods_name=cart.goods_name, num=cart.num, goods_id_id=cart.goods_id_id,
-                                   order_id_id=order_code,  sale_price=cart.sale_price)
+    # 该桌号下是否有未结账订单
+    order_pre = Order.objects.filter(desk_id_id=desk_id, status='YTJ')
+    if order_pre:
+        order = order_pre[0]
+        # 根据用户ID获取用户的购物车商品
+        cart_list = Cart.objects.filter(cr_us_id=request.user.id)
+        total_price = Decimal(0.0)
+        for cart in cart_list:
+            total_price += cart.sale_price * cart.num
+        # 更新订单的总金额
+        order.total_price += total_price
+        order.save()
+        # 添加订单详情
+        for cart in cart_list:
+            OrderDetail.objects.create(goods_name=cart.goods_name, num=cart.num, goods_id_id=cart.goods_id_id,
+                                       order_id_id=order.order_code, sale_price=cart.sale_price)
+    else:
+        # 新增新的订单
+        # 获取界面传递的参数
+        order_code = get_order_code()
+        user_id_id = request.user.id
+        time_now = timezone.now().strftime("%Y-%m-%d %H:%I:%S");
+        # 根据用户ID获取用户的购物车商品
+        cart_list=Cart.objects.filter(cr_us_id=user_id_id)
+        # 逻辑出添加订单的必要参数
+        total_price=Decimal(0.0)
+        for cart in cart_list:
+            total_price += cart.sale_price*cart.num
+        # 添加订单信息
+        Order.objects.create(order_code=order_code, desk_id_id=desk_id, bussnessDate=time_now, user_id_id=user_id_id, total_price=total_price, status='YTJ', mark="无")
+        # 添加订单详情的信息
+        for cart in cart_list:
+            OrderDetail.objects.create(goods_name=cart.goods_name, num=cart.num, goods_id_id=cart.goods_id_id,
+                                       order_id_id=order_code,  sale_price=cart.sale_price)
     # 清空购物车中的商品信息
-    # Cart.objects.all().delete()
+    Cart.objects.all().delete()
+
+    # 更新桌台的状态为用餐中
+    desk = Desk.objects.get(id=desk_id)
+    desk.status = 'YCZ'
+    desk.save()
     return render(request, 'order/print_order.html', locals())
 
 
@@ -151,9 +174,9 @@ def printOrder(request):
     p = "DL-581PW"  # 打印机名称
     # Printer.printing(p, html)
     # Printer.printerList()
-    printer=Printer()
-    printerInfo = QPrinterInfo()
-    printer.print_(new_data_url, p)
+    # printer=Printer()
+    # printerInfo = QPrinterInfo()
+    # printer.print_(new_data_url, p)
     # printing_22(request,p,  new_data_url)
     # sys.exit(app.exec_())
     return HttpResponse(json.dumps({'result':'ok'}))

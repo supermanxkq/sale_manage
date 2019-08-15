@@ -208,6 +208,15 @@
                             {% ifequal item.status 'YKT' %}
                                 已开台
                             {% endifequal %}
+                            {% ifequal item.status 'YCZ' %}
+                                用餐中
+                            {% endifequal %}
+                           {% ifequal item.status 'YJZ' %}
+                                已结账
+                            {% endifequal %}
+                          {% ifequal item.status 'YSC' %}
+                               已删除
+                           {% endifequal %}
                         </h4></li>
                         </li>
                     </ul>
