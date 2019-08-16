@@ -80,8 +80,11 @@ def toAdd(request):
 def add_order(request, desk_id):
     # 该桌号下是否有未结账订单
     order_pre = Order.objects.filter(desk_id_id=desk_id, status='YTJ')
+    order_code_view=''
+    time_now = timezone.now().strftime("%Y-%m-%d %H:%I:%S");
     if order_pre:
         order = order_pre[0]
+        order_code_view=order.order_code
         # 根据用户ID获取用户的购物车商品
         cart_list = Cart.objects.filter(cr_us_id=request.user.id)
         total_price = Decimal(0.0)
@@ -98,10 +101,10 @@ def add_order(request, desk_id):
         # 新增新的订单
         # 获取界面传递的参数
         order_code = get_order_code()
+        order_code_view=order_code
         user_id_id = request.user.id
-        time_now = timezone.now().strftime("%Y-%m-%d %H:%I:%S");
         # 根据用户ID获取用户的购物车商品
-        cart_list=Cart.objects.filter(cr_us_id=user_id_id)
+        cart_list = Cart.objects.filter(cr_us_id=user_id_id)
         # 逻辑出添加订单的必要参数
         total_price=Decimal(0.0)
         for cart in cart_list:
@@ -175,9 +178,9 @@ def printOrder(request):
     p = "DL-581PW"  # 打印机名称
     # Printer.printing(p, html)
     # Printer.printerList()
-    # printer=Printer()
-    # printerInfo = QPrinterInfo()
-    # printer.print_(new_data_url, p)
+    printer = Printer()
+    printerInfo = QPrinterInfo()
+    printer.print_(new_data_url)
     # printing_22(request,p,  new_data_url)
     # sys.exit(app.exec_())
     return HttpResponse(json.dumps({'result':'ok'}))

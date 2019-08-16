@@ -8,14 +8,18 @@ import sys, base64
 
 
 class Printer:
-    def print_(self, data_url,q_printerInfo):
-        print_device= QPrinter(q_printerInfo)
+    def __init__(self):
+        self.p = QPrinterInfo.defaultPrinter()
+        self.print_device = QPrinter(self.p)
+
+    def print_(self, data_url):
+        # print_device= QPrinter(q_printerInfo)
         image_content = base64.b64decode(data_url)  # 数据流base64解码
         image = QImage()
         image.loadFromData(image_content)  # 使用QImage构造图片
         # print(image.width(),image.height())
         # image.save('C:\\Users\\Administrator\\PycharmProjects\\printer\\a.png', 'PNG', 100)
-        painter = QPainter(print_device)  # 使用打印机作为绘制设备
+        painter = QPainter(self.print_device)  # 使用打印机作为绘制设备
         painter.drawImage(20, 0, image)  # 进行绘制（即调起打印服务）
         painter.end()  # 打印结束
 
