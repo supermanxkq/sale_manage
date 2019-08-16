@@ -2,6 +2,7 @@ from django import template
 from models.models import GoodsType
 from models.models import OrderDetail
 from models.models import Goods
+from models.models import Desk
 
 register = template.Library()
 import datetime
@@ -63,4 +64,8 @@ def query_single_price_by_id(value):
 def calc_total(price,num):
     return price * num
 
+@register.filter(is_safe=True)
+def queryDeskNameById(value):
+    desk = Desk.objects.get(id=value)
+    return desk.name
 

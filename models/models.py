@@ -94,3 +94,5 @@ class Printer(models.Model):
     where_use= models.CharField(max_length=20, default='')
     is_default= models.CharField(max_length=20, default='')
     device_type= models.CharField(max_length=20, default='')
+
+

@@ -17,6 +17,7 @@ from models.models import GoodsType
 from models.models import Goods
 from models.models import Cart
 from models.models import Desk
+from django.core import serializers
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QObject, pyqtSlot, QUrl
 from PyQt5.QtWebChannel import QWebChannel
@@ -182,6 +183,23 @@ def printOrder(request):
     return HttpResponse(json.dumps({'result':'ok'}))
 
 
+# 查询结账所用的数据
+@login_required
+@csrf_exempt
+def  querySettleOrderData(request):
+    # 获取桌号
+    desk_id = request.POST.get('desk_id')
+    # 根据桌号查询订单信息,没有结账的信息
+    orders = Order.objects.filter(desk_id_id=desk_id, status='YTJ')
+    # 根据订单的编号查询订单的详细信息
+    if orders:
+        order = orders[0]
+        print(order.order_code)
+        # 使用序列化将查询到的数据返回到界面上
+        order_details_list_json = serializers.serialize("json", OrderDetail.objects.filter(order_id_id=order.order_code))
+        return HttpResponse(order_details_list_json, content_type='application/json')
+    return JsonResponse(json.dumps({'result': 'empty'}))
+
 # @login_required
 # def printing_22(request,printer, context):
 #     printerInfo = QPrinterInfo()
@@ -195,3 +213,19 @@ def printOrder(request):
 #             p.logicalDpiY()*(297/25.4)))
 #             p.setOutputFormat(QPrinter.NativeFormat)
 #             doc.print_(p)
+
+
+# 确认结账
+@login_required
+@csrf_exempt
+def confirmSettleOrder(request):
+    desk_id = request.POST.get('desk_id')
+    desk = Desk.objects.get(id=desk_id)
+    if desk:
+        desk.status = 'YCJ'
+        desk.save()
+        order = Order.objects.get(desk_id_id=desk_id, status='YTJ')
+        if order:
+            order.status = 'YJZ'
+            order.save()
+    return HttpResponse(json.dumps({'result' : 'ok'}))

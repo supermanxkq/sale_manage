@@ -72,6 +72,8 @@ urlpatterns = [
     url(r'^add_order/(?P<desk_id>[0-9]+)$', order_view.add_order, name='add_order'),
     url(r'^queryTodayOrders/$', order_view.queryTodayOrder, name='queryTodayOrders'),
     url(r'^printOrder/$', order_view.printOrder, name='printOrder'),
+    url(r'^querySettleOrderData/$', order_view.querySettleOrderData, name='querySettleOrderData'),
+    url(r'^confirmSettleOrder/$', order_view.confirmSettleOrder, name='confirmSettleOrder'),
     # 桌台管理
     url(r'^to_desk_status_list/$', desk_view.to_desk_status_list, name='to_desk_status_list'),
     url(r'^open_desk/$', desk_view.open_desk, name='open_desk'),

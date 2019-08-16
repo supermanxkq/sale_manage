@@ -270,15 +270,15 @@
                                         {% for item in merchants_list %}
                                             <tr class="odd gradeX">
                                                 <td>{{ item.id }}</td>
-                                                <td>{{ item.desk_id_id }}</td>
+                                                <td>{{ item.desk_id_id | queryDeskNameById }}</td>
                                                 <td>{{ item.order_code }}</td>
                                                 <td class="hidden-480">{{ item.order_code | query_img_by_orderId |safe }}</td>
                                                 <td class="hidden-480">{{ item.total_price }}</td>
-                                                {% ifequal item.status 'ZC' %}
-                                                    <td class="hidden-480">正常</td>
-                                                    {% endifequal %}
                                                 {% ifequal item.status 'YTJ' %}
-                                                    <td class="hidden-480"> 已提交</td>
+                                                    <td class="hidden-480">已提交</td>
+                                                    {% endifequal %}
+                                                {% ifequal item.status 'YJZ' %}
+                                                    <td class="hidden-480"> 已结账</td>
                                                 {% endifequal %}
                                                 <td class="hidden-480">{{ item.bussnessDate |date:"Y-m-d H:i:s" }}</td>
                                                 <td class="hidden-480">{{ item.create_time |date:"Y-m-d H:i:s" }}</td>
