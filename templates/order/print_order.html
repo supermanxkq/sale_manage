@@ -69,7 +69,7 @@
     <h1>小野点餐系统</h1><span>**************************</span>
     <div class="section1"><h3>线下支付预约</h3></div>
     <span>**************************</span>
-    <div class="section2"><label>桌号：{{ desk_id }}</label></div>
+    <div class="section2"><label>桌号：{{ desk_id | queryDeskNameById}}</label></div>
         <span>**************************</span>
     <div class="section3"><label>订单编号：{{order_code_view}}</label><label>下单时间：{{ time_now }}</label></div>
     <span>**************************</span>
@@ -106,12 +106,11 @@
 <script language="javascript" type="text/javascript">
     $(function () {
          html2canvas($("#print_container")).then(function(canvas) {
-        document.body.appendChild(canvas);
         var data_param={"data_url":canvas.toDataURL()};
         $.ajax({
             data:data_param,
             url:'/printOrder/',
-            type:'post',
+            type:'post',    
             dataType:'json',
             success:function (res) {
                 if(res.result=='ok'){
