@@ -190,6 +190,8 @@ def printOrder(request):
 @login_required
 @csrf_exempt
 def  querySettleOrderData(request):
+    # 手动组装数据进行返回
+    data_dict = {}
     # 获取桌号
     desk_id = request.POST.get('desk_id')
     # 根据桌号查询订单信息,没有结账的信息
@@ -197,10 +199,17 @@ def  querySettleOrderData(request):
     # 根据订单的编号查询订单的详细信息
     if orders:
         order = orders[0]
-        print(order.order_code)
-        # 使用序列化将查询到的数据返回到界面上
-        order_details_list_json = serializers.serialize("json", OrderDetail.objects.filter(order_id_id=order.order_code))
-        return HttpResponse(order_details_list_json, content_type='application/json')
+        order_dict = {'order_code': order.order_code, 'total_price' : str(order.total_price) , 'bussinessDate' : str(order.bussnessDate),'desk_id': desk_id}
+        data_dict['order'] = order_dict
+        order_detail_list = []
+        # 将订单详情放入字典中
+        order_details = OrderDetail.objects.filter(order_id_id=order.order_code)
+        if order_details:
+            for item in order_details:
+                order_detail_dict = {'goods_name': item.goods_name, 'num': item.num, 'sale_price': str(item.sale_price)}
+                order_detail_list.append(order_detail_dict)
+            order_dict['order_details'] = order_detail_list
+            return HttpResponse(json.dumps(data_dict), content_type='application/json')
     return JsonResponse(json.dumps({'result': 'empty'}))
 
 # @login_required
@@ -231,4 +240,4 @@ def confirmSettleOrder(request):
         if order:
             order.status = 'YJZ'
             order.save()
-    return HttpResponse(json.dumps({'result' : 'ok'}))
+    return HttpResponse(json.dumps({'result': 'ok'}))

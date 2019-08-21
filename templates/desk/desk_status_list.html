@@ -266,26 +266,21 @@
                     </h4>
                 </div>
                 <div class="modal-body form">
+                    <div class="span6">
                     <form method="post"
                           class="form-horizontal addShopCartForm">
                         {% csrf_token %}
                         <input type="hidden" name="desk_id" id="desk_id"/>
-                        <div class="control-group">
-                            <label class="control-label"><span
-                                    class="required">*</span>桌台：</label>
-                            <div class="controls">
-                                <input type="text" name="desk_name" data-required="1" readonly
-                                       class="span6 m-wrap desk_name" value="{{ desk_id }}"/>
-                            </div>
+                        <div class="control-group order_info">
+
                         </div>
-                        <div class="control-group">
-                            <label class="control-label"><span class="required">*</span>数量：</label>
-                            <div class="controls">
-                                <input class="span6 m-wrap goods_num" rows="3" name="num"
-                                       type="number"/>
-                            </div>
-                        </div>
+
                     </form>
+                    </div>
+                    <div class="span6">
+                        <img src="/static/img/qr_code/wechat_pay.jpeg" width="50%" height="50%"/>
+                    </div>
+                    <div class="span12">
                     <table class="table table-striped table-bordered table-hover" id="sample_1">
 
                         <thead>
@@ -295,7 +290,7 @@
                             <th>商品名称</th>
                             <th class="hidden-480">数量</th>
                             <th class="hidden-480">销售价格</th>
-                            <th class="hidden-480">订单编号</th>
+                            <th class="hidden-480">合计</th>
                         </tr>
                         </thead>
 
@@ -304,6 +299,7 @@
                         </tbody>
 
                     </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭

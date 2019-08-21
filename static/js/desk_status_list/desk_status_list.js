@@ -43,14 +43,12 @@ $(function () {
             dataType: 'json',
             success: function (res) {
                 var html="";
-                 $(".order_goods_list").html(html);
-                $.each(res,function (i,item) {
-                    html+='<tr class="odd gradeX"><td>'+item.fields.goods_id+'</td><td class="hidden-480">'+item.fields.goods_name+'</td><td class="hidden-480">'+item.fields.num+'</td><td class="hidden-480">'+item.fields.sale_price+'</td><td class="hidden-480">'+item.fields.order_id+'</td></tr>';
-                })
-
+                $.each(res.order.order_details,function (i,item) {
+                   html+='<tr><td>'+i+'</td><td>'+item.goods_name+'</td><td>'+item.num+'</td><td>'+item.sale_price+'</td><td>'+item.sale_price*item.num+'</td></tr>';
+                });
                 $(".order_goods_list").html(html);
+                $(".order_info").html('<p>桌号：'+res.order.desk_id+'</p><p>订单号：'+res.order.order_code+'</p><p>业务日期：'+res.order.bussinessDate+'</p><p>订单总额：'+res.order.total_price+'</p>');
                 $(".confirmSettleOrder").data('deskId',desk_id)
-                console.log(res)
             }
         });
     });
@@ -65,8 +63,8 @@ $(function () {
             data: data_param,
             dataType: 'json',
             success: function (res) {
-                 myModal.modal('hide');
-               window.location.href = "/to_desk_status_list/";
+                myModal.modal('hide');
+                window.location.href = "/to_desk_status_list/";
             }
         });
     });
