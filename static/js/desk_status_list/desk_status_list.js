@@ -44,7 +44,7 @@ $(function () {
             success: function (res) {
                 var html="";
                 $.each(res.order.order_details,function (i,item) {
-                   html+='<tr><td>'+i+'</td><td>'+item.goods_name+'</td><td>'+item.num+'</td><td>'+item.sale_price+'</td><td>'+item.sale_price*item.num+'</td></tr>';
+                   html+='<tr><td>'+(i+1)+'</td><td>'+item.goods_name+'</td><td>'+item.num+'</td><td>'+item.sale_price+'</td><td>'+item.sale_price*item.num+'</td></tr>';
                 });
                 $(".order_goods_list").html(html);
                 $(".order_info").html('<p>桌号：'+res.order.desk_id+'</p><p>订单号：'+res.order.order_code+'</p><p>业务日期：'+res.order.bussinessDate+'</p><p>订单总额：'+res.order.total_price+'</p>');
