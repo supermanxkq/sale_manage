@@ -194,12 +194,13 @@ def  querySettleOrderData(request):
     data_dict = {}
     # 获取桌号
     desk_id = request.POST.get('desk_id')
+    desk = Desk.objects.get(id=desk_id)
     # 根据桌号查询订单信息,没有结账的信息
     orders = Order.objects.filter(desk_id_id=desk_id, status='YTJ')
     # 根据订单的编号查询订单的详细信息
     if orders:
         order = orders[0]
-        order_dict = {'order_code': order.order_code, 'total_price' : str(order.total_price) , 'bussinessDate' : str(order.bussnessDate),'desk_id': desk_id}
+        order_dict = {'order_code': order.order_code, 'total_price' : str(order.total_price) , 'bussinessDate' : str(order.bussnessDate),'desk_id': desk.name}
         data_dict['order'] = order_dict
         order_detail_list = []
         # 将订单详情放入字典中
