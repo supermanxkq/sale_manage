@@ -4,18 +4,19 @@
 {#{% load compress %}#}
 
 {% block meta %}
-    <meta name="keywords" content="商品类型修改"/>
-    <meta name="description" content="商品类型修改"/>
+    <meta name="keywords" content="添加新的角色"/>
+    <meta name="description" content="添加新的角色"/>
 {% endblock %}
 
 {% block title %}
-    <title>商品类型修改</title>
+    <title>添加角色</title>
 {% endblock %}
 
 {% block linkcss %}
     <link rel="stylesheet" href="/static/css/DT_bootstrap.css" type="text/css"/>
     <link rel="stylesheet" href="/static/css/select2_metro.css" type="text/css"/>
 {% endblock %}
+
 {% block bBody %}
     <!-- BEGIN PAGE -->
     <div class="page-content">
@@ -144,9 +145,9 @@
 
                     <h3 class="page-title">
 
-                        修改商品类型
+                        添加角色
 
-                        <small>更改商品类型名称</small>
+                        <small>添加角色</small>
 
                     </h3>
 
@@ -164,13 +165,13 @@
 
                         <li>
 
-                            <a href="#">商品</a>
+                            <a href="#">系统设置</a>
 
                             <span class="icon-angle-right"></span>
 
                         </li>
 
-                        <li><a href="#">商品类型修改</a></li>
+                        <li><a href="#">添加角色</a></li>
 
                     </ul>
 
@@ -193,7 +194,7 @@
 
                         <div class="portlet-title">
 
-                            <div class="caption"><i class="icon-plus"></i>修改商品类型</div>
+                            <div class="caption"><i class="icon-plus"></i>添加角色</div>
                         </div>
 
                         <div class="portlet-body form">
@@ -202,9 +203,9 @@
 
                             {#								<h3>Advance validation of custom radio buttons, checkboxes and chosen dropdowns</h3>#}
 
-                            <form action="{% url 'goodstype_update' %}" method="post" id="form_sample_2" class="form-horizontal">
+                            <form action="{% url 'add_role' %}" method="post" id="form_sample_2"
+                                  class="form-horizontal">
                                 {% csrf_token %}
-                                <input type="hidden" name="id" value="{{ Data.id }}"/>
                                 <div class="alert alert-error hide">
 
                                     <button class="close" data-dismiss="alert"></button>
@@ -223,45 +224,18 @@
 
                                 <div class="control-group">
 
-                                    <label class="control-label"><span class="required">*</span>名称：</label>
+                                    <label class="control-label"><span class="required">*</span>角色名称：</label>
 
                                     <div class="controls">
-
-                                        <input type="text" name="name" data-required="1" class="span6 m-wrap" value="{{ Data.name }}"/>
-
+                                        <input type="text" name="title" data-required="1" class="span6 m-wrap"
+                                               id="title"/>
                                     </div>
 
                                 </div>
-                                   <div class="control-group">
-
-                                    <label class="control-label"><span class="required">*</span>代码：</label>
-
-                                    <div class="controls">
-
-                                        <input type="text" name="code" data-required="1" class="span6 m-wrap" value="{{ Data.code }}"/>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="control-group">
-
-                                    <label class="control-label"><span class="required">*</span>描述：</label>
-
-                                    <div class="controls">
-                                        <textarea class="span6 m-wrap" rows="3" name="description">{{ Data.description }}</textarea>
-
-                                    </div>
-
-                                </div>
-
 
                                 <div class="form-actions">
-
-                                    <button type="submit" class="btn green addGoodsType">修改</button>
-
-                                    <a type="button" href="/goodsTypeList/" class="btn">取消</a>
-
+                                    <button type="submit" class="btn green">添加</button>
+                                    <a type="button" href="/role_list_page/" class="btn">取消</a>
                                 </div>
 
                             </form>
@@ -289,9 +263,10 @@
 {% endblock %}
 {% block bJs %}
     {#    <script src="/static/js/table-managed.js" type="text/javascript"></script>#}
-{#        <script type="text/javascript" src="/static/js/goods/goods_add.js"></script>#}
+{#    <script type="text/javascript" src="/static/js/goodstype/goodstype_add.js"></script>#}
 
 {% endblock %}
+
 
 
 

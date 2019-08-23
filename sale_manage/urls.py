@@ -24,6 +24,7 @@ from msg import views as msg_view
 from cart import views as cart_view
 from desk import views as desk_view
 from printer import views as printer_view
+from role import views as role_view
 app_name = "sale"
 urlpatterns = [
     url('admin/', admin.site.urls),
@@ -108,5 +109,9 @@ urlpatterns = [
 
     #打印机测试的功能
     url(r'^printer_test/$', printer_view.printer_test, name='printer_test'),
+    # 角色管理
+    url(r'^role_list_page/$', role_view.role_list_page, name='role_list_page'),
+    url(r'^to_add_role/$', role_view.to_add_role, name='to_add_role'),
+    url(r'^add_role/$', role_view.add_role, name='add_role'),
 
 ]

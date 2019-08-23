@@ -6,17 +6,42 @@ from system.storage import ImageStorage
 
 # 产品类型表
 class GoodsType(models.Model):
-    name = models.CharField(max_length=10)
-    description = models.CharField(default='', max_length=500)
-    code = models.CharField(max_length=10, unique=True, default='')
+    name = models.CharField(verbose_name='商品类型名称', max_length=10)
+    description = models.CharField(default='', verbose_name='类型描述', max_length=500)
+    code = models.CharField(max_length=10, unique=True, default='', verbose_name='代码')
+
+
+class Permission(models.Model):
+    """
+    权限表
+    """
+    title = models.CharField(verbose_name='权限标题', max_length=32)
+    url = models.CharField(verbose_name='资源的URL', max_length=128)
+    # 用来做控制，一些小权限（非菜单）么有就不显示
+    name = models.CharField(verbose_name='URL别名', max_length=32, unique=True)  # unique唯一
+    # menu = models.ForeignKey(verbose_name='所属一级菜单', help_text='null表示不是菜单，否则为二级菜单', null=True, blank=True, to='Menu',
+    #                          on_delete=models.CASCADE)
+
+    # 跟自身表关联，已经是菜单的就可以不关联null=True
+    # 非菜单的权限，要选一个母菜单。当选中该权限时就可以归类跳转到母菜单下
+    # pid = models.ForeignKey(verbose_name='关联的权限', to='Permission', null=True, blank=True, related_name='parents',
+    #                         help_text='非菜单的权限，要选一个母菜单。当选中该权限时就可以归类跳转到母菜单下', on_delete=models.CASCADE)
+
+class Role(models.Model):
+    """
+    角色
+    """
+    title = models.CharField(verbose_name='角色名称', max_length=32)
+    permissions = models.ManyToManyField(verbose_name='拥有的所有权限', to='Permission', blank=True)
 
 
 class User(AbstractUser):
-    img = models.ImageField(upload_to='img', default='')
-    phone = models.CharField(max_length=11, unique=True, default='')
-    birthday = models.DateField(auto_now_add=True)
-    interests = models.CharField(default='', max_length=100)
-    address = models.CharField(default='', max_length=100)
+    img = models.ImageField(upload_to='img', default='', verbose_name='用户头像的URL')
+    phone = models.CharField(max_length=11, unique=True, default='', verbose_name='手机号码')
+    birthday = models.DateField(auto_now_add=True, verbose_name='生日')
+    interests = models.CharField(default='', max_length=100, verbose_name='爱好')
+    address = models.CharField(default='', max_length=100, verbose_name='所在地址')
+    roles = models.ManyToManyField(verbose_name='拥有的所有的角色', to=Role, blank=True) # blank=True字段可以为空，=FALSE，字段必须填写
 
 
 # 产品表
@@ -88,11 +113,10 @@ class OrderDetail(models.Model):
 
 # 打印机设置
 class Printer(models.Model):
-    goodsType_id = models.ForeignKey(GoodsType, related_name='printer_goods_type_id', on_delete=models.CASCADE)
-    printer_name= models.CharField(max_length=50, default='')
-    ip_address= models.CharField(max_length=20, default='')
-    where_use= models.CharField(max_length=20, default='')
-    is_default= models.CharField(max_length=20, default='')
-    device_type= models.CharField(max_length=20, default='')
-
-
+    goodsType_id = models.ForeignKey(GoodsType, related_name='printer_goods_type_id', on_delete=models.CASCADE,
+                                     verbose_name='商品分类编号')
+    printer_name = models.CharField(max_length=50, default='', verbose_name='打印机名称')
+    ip_address = models.CharField(max_length=20, default='', verbose_name='打印机IP地址')
+    where_use = models.CharField(max_length=20, default='', verbose_name='使用地方')
+    is_default = models.CharField(max_length=20, default='', verbose_name='是否默认打印机')
+    device_type = models.CharField(max_length=20, default='', verbose_name='设备类型')
