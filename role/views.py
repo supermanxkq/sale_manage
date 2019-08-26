@@ -28,6 +28,7 @@ def role_list_page(request):
     role_list = contacts.object_list
     return render(request, 'role/role_list.html', locals())
 
+
 #
 # @login_required
 # def delete_desk(request, id):
@@ -55,6 +56,8 @@ def role_list_page(request):
 @login_required
 def to_add_role(request):
     return render(request, 'role/role_add.html');
+
+
 #
 #
 @csrf_exempt
@@ -63,6 +66,26 @@ def add_role(request):
     title = request.POST.get('title', 'title')
     Role.objects.create(title=title)
     return HttpResponseRedirect('/role_list_page/')
+
+
+@login_required
+def to_role_edit(request, id):
+    # 根据ID查找对应的角色对象
+    role = Role.objects.get(id=id)
+    return render(request, 'role/role_update.html', locals())
+
+
+@login_required
+@csrf_exempt
+def role_update(request):
+    id = request.POST.get('id', 'id')
+    title = request.POST.get('title', 'title')
+    Role.objects.filter(id=id).update(id=id, title=title)
+    return HttpResponseRedirect('/role_list_page/')
+
+
+
+
 #
 #
 # @login_required

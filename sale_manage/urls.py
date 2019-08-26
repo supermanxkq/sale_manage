@@ -113,5 +113,7 @@ urlpatterns = [
     url(r'^role_list_page/$', role_view.role_list_page, name='role_list_page'),
     url(r'^to_add_role/$', role_view.to_add_role, name='to_add_role'),
     url(r'^add_role/$', role_view.add_role, name='add_role'),
+    url(r'^to_role_edit/(?P<id>[0-9]+)$', role_view.to_role_edit, name='to_role_edit'),
+    url(r'^role_update/$', role_view.role_update, name='role_update'),
 
 ]

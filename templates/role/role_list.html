@@ -251,10 +251,8 @@
                                                 <td>{{ item.id }}</td>
                                                 <td class="hidden-480">{{ item.title }}</td>
                                                 <td class="center hidden-480"><a
-                                                        href="{% url 'goodstype_edit' item.id %}"><i class="icon-edit"
+                                                        href="{% url 'to_role_edit' item.id %}"><i class="icon-edit"
                                                                                                      style="font-size: 17px;"></i></a>
-                                                    <a href="{% url 'del_printer' item.id %}"><i class="icon-trash"
-                                                                                                    style="font-size: 17px;"></i></a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
